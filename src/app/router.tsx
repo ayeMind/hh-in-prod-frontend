@@ -14,6 +14,8 @@ import {ImportGithub} from "@/pages/imports/import-github";
 import {ImportHh} from "@/pages/imports/import-hh";
 import {ImportPdf} from "@/pages/imports/import-pdf";
 import { HackathonView } from "@/pages/hackathon-view";
+import {Profile} from "@/pages/profile";
+import {CreateHackathon} from "@/pages/create-hackathon";
 
 export const router = createBrowserRouter([
   {
@@ -72,5 +74,13 @@ export const router = createBrowserRouter([
   {
     path: "/hackathon/:hackathon_id/resume/:user_id",
     element: <HackathonView />
-  }
+  },
+  {
+    path: "/profile",
+    element: <Profile />
+  },
+  {
+    path: "/create-hackathon",
+    element: <CreateHackathon />
+  },
 ]);
