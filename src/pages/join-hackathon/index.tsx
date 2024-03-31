@@ -1,32 +1,32 @@
-import {Button, Center, Flex, Text } from "@mantine/core";
+import { Button, Center, Flex, Text } from "@mantine/core";
 import styles from './join-hackathon.module.css';
-import {jwtDecode} from "jwt-decode";
-import {useSearchParams, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import parseJwt from "@/utils/parse-jwt.ts";
 
 export const JoinHackathon = () => {
-    const hackathons: {[key: string]: string} = {
+    const hackathons: { [key: string]: string } = {
         "45": "Хакатон Prod",
     }
     const [searchParams] = useSearchParams();
     const [hackathonId, setHackathonId] = useState<string>()
     const navigate = useNavigate();
     useEffect(() => {
-        try {
-            console.log(jwtDecode(searchParams.get("hackathon_id") as string))
-            setHackathonId(
-                (jwtDecode(searchParams.get("hackathon_id") as string) as any).id
-            )
-        } catch (err) { navigate("/404") }
+        const id = parseJwt(searchParams.get("hackathon_id") as string, 'id')
+        if (id) {
+            setHackathonId(id)
+        } else {
+            navigate("/404")
+        }
     }, [])
     return (
-        <Flex component={Center} h={"100vh"} direction={"column"}>
-            <Text fw="500" size={"xl"} mb={"sm"} className={styles.title}>
+        <Flex component={ Center } h={ "100vh" } direction={ "column" }>
+            <Text fw="500" size={ "xl" } mb={ "sm" } className={ styles.title }>
                 Привет!
                 <br/>
-                Тебя пригласили на «{hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон"}»
+                Тебя пригласили на «{ hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон" }»
             </Text>
-            <Button onClick={() => navigate(`/hackathon/${hackathonId}/create-resume`)}>Принять приглашение</Button>
+            <Button onClick={ () => navigate(`/hackathon/${ hackathonId }/create-resume`) }>Принять приглашение</Button>
         </Flex>
     )
 }
