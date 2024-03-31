@@ -26,7 +26,7 @@ export const JoinHackathon = () => {
                 <br/>
                 Тебя пригласили на «{hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон"}»
             </Text>
-            <Button onClick={() => navigate(`/${hackathonId}/create-resume`)}>Принять приглашение</Button>
+            <Button onClick={() => navigate(`/hackathon/${hackathonId}/create-resume`)}>Принять приглашение</Button>
         </Flex>
     )
 }

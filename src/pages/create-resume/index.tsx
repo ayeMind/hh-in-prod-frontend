@@ -21,22 +21,22 @@ export const CreateResume = () => {
             </Text>
             <Flex direction={"column"} gap={"sm"}>
                 <Button>
-                    <Link to={`/${hackathonId}/create-resume/custom`}>
+                    <Link to={`/hackathon/${hackathonId}/create-resume/custom`}>
                         Создать с нуля
                     </Link>
                 </Button>
                 <Button>
-                    <Link to={`/${hackathonId}/create-resume/github`}>
+                    <Link to={`/hackathon/${hackathonId}/create-resume/github`}>
                         Импорт из Github
                     </Link>
                 </Button>
                 <Button>
-                    <Link to={`/${hackathonId}/create-resume/pdf`}>
+                    <Link to={`/hackathon/${hackathonId}/create-resume/pdf`}>
                         Импорт из резюме pdf
                     </Link>
                 </Button>
                 <Button>
-                    <Link to={`/${hackathonId}/create-resume/hh`}>
+                    <Link to={`/hackathon/${hackathonId}/create-resume/hh`}>
                         Импорт из hh.ru
                     </Link>
                 </Button>
