@@ -2,10 +2,10 @@ import {Header} from "@/components/header";
 import {Button, Container, Flex, NumberInput, TextInput} from "@mantine/core";
 
 export const Profile = () => {
-    const user_type = "user";
+
     return (
         <>
-            <Header variant={user_type} />
+            <Header variant="default" />
             <Container size={"md"}>
                 <h1>Ваш профиль</h1>
                 <Flex direction="column" gap={"md"}>
