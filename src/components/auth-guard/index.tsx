@@ -32,7 +32,7 @@ export const AuthGuard: FC<AuthGuardProps> = memo(props => {
         if (props.role == 'any') {
             setRoleCorrect(true)
         }
-    }, [user])
+    }, [user, loading])
 
     if (!user || !roleCorrect) {
         return <Center w='100vw' h='100vh'>
