@@ -1,12 +1,12 @@
 import { Avatar, Container, Flex, Text, Badge } from "@mantine/core"
 import { Header } from "@/components/header";
+import { AuthGuard } from "@/components/auth-guard";
 
 const contacts = ["@petya123", "www.github.com/petya_cool", "petya@gmail.com"]
 const techSkills = ["Python", "JavaScript", "Git", "React", "Angular"]
 const softSkills = ["Ответственный", "Крутой", "Очень смешной", "Удивительный", "Гениальный", "Сверхразум", "Диктор", "Манимулятор", "Удивительный", "Ответственный", "Крутой",]
 
-export const HackathonView = () => {
-
+export const ResumeView = () => {
     const contactsItems = contacts.map(contact => (
         <Text mb="md">{contact}</Text>
     ))
@@ -24,7 +24,7 @@ export const HackathonView = () => {
     ))
 
   return (
-    <>
+    <AuthGuard role='any'>
        <Header variant="user" />
        <Container>
         <Flex align="center" gap="md">
@@ -57,6 +57,6 @@ export const HackathonView = () => {
         </Container>
 
        </Container>
-    </>
+    </AuthGuard>
   );
 };

@@ -6,8 +6,8 @@ import { MembersList } from "@/components/members-list";
 import { AuthGuard } from "@/components/auth-guard";
 export const HackathonInfo = () => {
   return (
-    <AuthGuard>
-       <Header />
+    <AuthGuard role='user'>
+       <Header variant='user' />
        <Container>
             <h1>Хакатон PROD</h1>
             <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png" mah={350} radius="sm" mt="xs" />

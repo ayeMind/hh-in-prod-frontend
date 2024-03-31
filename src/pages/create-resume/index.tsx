@@ -14,7 +14,7 @@ export const CreateResume = () => {
         setHackathonId(params.id)
     }, [])
     return (
-        <AuthGuard>
+        <AuthGuard role='user'>
             <Flex component={ Center } h={ "100vh" } direction={ "column" }>
                 <Text size={ "xl" } mb="md" className={ styles.title }>
                     Создание резюме

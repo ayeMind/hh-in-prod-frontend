@@ -1,10 +1,11 @@
 import {Header} from "@/components/header";
 import {Button, Container, Flex, NumberInput, TextInput} from "@mantine/core";
+import { AuthGuard } from "@/components/auth-guard";
 
 export const Profile = () => {
     const user_type = "user";
     return (
-        <>
+        <AuthGuard role='user'>
             <Header variant={user_type} />
             <Container size={"md"}>
                 <h1>Ваш профиль</h1>
@@ -33,6 +34,6 @@ export const Profile = () => {
                     <Button w={"fit-content"}>Сохранить</Button>
                 </Flex>
             </Container>
-        </>
+        </AuthGuard>
     )
 }

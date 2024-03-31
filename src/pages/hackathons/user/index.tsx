@@ -5,8 +5,8 @@ import { AuthGuard } from "@/components/auth-guard";
 
 export const HackathonsUser = () => {
   return (
-    <AuthGuard>
-      <Header />
+    <AuthGuard role='user'>
+      <Header variant='user' />
       <Container>
         <Text size="xl" mb="md">
           Ваши хакатоны

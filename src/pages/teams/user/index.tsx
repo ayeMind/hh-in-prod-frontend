@@ -8,14 +8,14 @@ import { TeamCard } from "@/components/team-card";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthGuard } from "@/components/auth-guard";
 
-export type TeamOrgPageProps = {}
+export type TeamUserPageProps = {}
 
-export const TeamOrgPage: FC<TeamOrgPageProps> = memo(() => {
+export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const is960 = useMediaQuery('(max-width: 960px) and (min-width: 651px)')
     const is650 = useMediaQuery('(max-width: 650px)')
 
-    return <AuthGuard>
-        <Header/>
+    return <AuthGuard role='organizer'>
+        <Header variant='user'/>
         <Container size="md" mt="md">
             {/*  Head */ }
             <Flex justify="space-between" mb='md' align='center'>
