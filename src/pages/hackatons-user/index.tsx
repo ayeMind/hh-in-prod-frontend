@@ -2,14 +2,16 @@ import { Container, Text } from "@mantine/core";
 import { HackatonsList } from "@/components/hackatons-list";
 import { Header } from "@/components/header";
 
-export const HackatonsOrganizer = () => {
+export const HackatonsUser = () => {
   return (
     <>
-       <Header />
-       <Container>
-        <Text size="xl" mb="md">Ваши хакатоны</Text>
+      <Header />
+      <Container>
+        <Text size="xl" mb="md">
+          Ваши хакатоны
+        </Text>
         <HackatonsList />
-       </Container>
+      </Container>
     </>
   );
 };
