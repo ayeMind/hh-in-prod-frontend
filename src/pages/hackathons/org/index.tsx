@@ -1,23 +1,23 @@
 import { Button, Container, Flex, Text } from "@mantine/core";
-import { IconPlus } from "@tabler/icons-react"
 import { HackathonsList } from "@/components/hackathons-list";
 import { Header } from "@/components/header";
+import { AuthGuard } from "@/components/auth-guard";
 
 export const HackathonsOrg = () => {
   return (
-    <>
-      <Header variant="default" />
+    <AuthGuard>
+      <Header />
       <Container>
         <Flex justify="space-between">
           <Text size="xl" mb="md">
             Ваши хакатоны
           </Text>
           <Button>
-            <IconPlus stroke={2} size={20} />
+            <Text>+</Text>
           </Button>
         </Flex>
         <HackathonsList />
       </Container>
-    </>
+    </AuthGuard>
   );
 };

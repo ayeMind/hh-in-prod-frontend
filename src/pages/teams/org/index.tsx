@@ -6,6 +6,7 @@ import { CurrentTeamCard } from "@/components/current-team-card";
 import { SearchInput } from "@/components/search-input";
 import { TeamCard } from "@/components/team-card";
 import { useMediaQuery } from "@mantine/hooks";
+import { AuthGuard } from "@/components/auth-guard";
 
 export type TeamOrgPageProps = {}
 
@@ -13,8 +14,8 @@ export const TeamOrgPage: FC<TeamOrgPageProps> = memo(() => {
     const is960 = useMediaQuery('(max-width: 960px) and (min-width: 651px)')
     const is650 = useMediaQuery('(max-width: 650px)')
 
-    return <>
-        <Header variant='user'/>
+    return <AuthGuard>
+        <Header/>
         <Container size="md" mt="md">
             {/*  Head */ }
             <Flex justify="space-between" mb='md' align='center'>
@@ -65,8 +66,6 @@ export const TeamOrgPage: FC<TeamOrgPageProps> = memo(() => {
                     })
                 }
             </SimpleGrid>
-
-
         </Container>
-    </>
+    </AuthGuard>
 })
