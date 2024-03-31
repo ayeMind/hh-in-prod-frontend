@@ -28,7 +28,7 @@ export const Header = () => {
               {items}
             </Group>
           </Flex>
-            <Divider w={"100%"} />
+            <Divider w={"100%"} mb="md" />
         </Container>
     </header>
   );
