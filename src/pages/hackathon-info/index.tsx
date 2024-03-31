@@ -1,4 +1,4 @@
-import { Container, Text, Image, TextInput, Button, SimpleGrid } from "@mantine/core";
+import { Container, Text, Image, TextInput, Button   } from "@mantine/core";
 import { Header } from "@/components/header"
 import { IconSearch } from "@tabler/icons-react";
 import classes from "./hackathon-info.module.css"
