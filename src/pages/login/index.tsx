@@ -6,15 +6,17 @@ export const Login = () => {
     return (
         <Flex component={Center} h={"100vh"} direction={"column"}>
             <Text size={"xl"} mb={"sm"}>Вход</Text>
-            <Flex w={"250px"} direction={"column"} gap={"xs"}>
+            <Flex w={"300px"} direction={"column"} gap={"xs"}>
                 <TextInput
+                    size="md"
                     placeholder={"Email"}
                     rightSection={<IconAt stroke={2} size={16} />}
                 />
                 <PasswordInput
+                    size="md"
                     placeholder={"Пароль"}
                 />
-                <Button>Войти в аккаунт</Button>
+                <Button size="md">Войти в аккаунт</Button>
             </Flex>
 
             <Link to={"/sign-up/user"}>
