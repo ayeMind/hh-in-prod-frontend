@@ -1,9 +1,11 @@
-const NotFound = () => {
+import { Flex, Text } from "@mantine/core";
+import classes from './styles.module.css'
+
+export const NotFound = () => {
   return (
-    <>
-       404
-    </>
+    <Flex direction="column" justify="center" align="center" h="100vh">
+       <Text className={classes["sub-title"]}>Page Not Found</Text>
+       <Text className={classes["main-title"]}>404</Text>
+    </Flex>
   );
 };
-
-export default NotFound;
