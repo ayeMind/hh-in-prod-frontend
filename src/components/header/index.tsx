@@ -1,4 +1,4 @@
-import {Container, Group, Text, Flex} from "@mantine/core";
+import {Container, Group, Text, Flex, Button, Divider} from "@mantine/core";
 import {Link} from "react-router-dom";
 
 const links = [
@@ -8,27 +8,28 @@ const links = [
 ];
 
 export const Header = () => {
-
-
     const items = links.map((link) => (
         <Link
           key={link.label}
           to={link.link}
         >
-          {link.label}
+            <Button size={"xs"} fw={"500"}>
+                {link.label}
+            </Button>
         </Link>
     ));
 
-
   return (
     <header>
-      <Flex component={Container} size="md" justify={"space-between"} align={"center"} p="md">
-        <Text size="md">LOGO</Text>
-        <Group gap="md" >
-          {items}
-        </Group>
-
-      </Flex>
+        <Container size="md">
+          <Flex justify={"space-between"} align={"center"} p="md">
+            <Text size="md" fw={"600"}>LOGO</Text>
+            <Group gap="md" >
+              {items}
+            </Group>
+          </Flex>
+            <Divider w={"100%"} />
+        </Container>
     </header>
   );
 };
