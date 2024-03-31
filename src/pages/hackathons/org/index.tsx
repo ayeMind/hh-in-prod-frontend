@@ -6,7 +6,7 @@ import { Header } from "@/components/header";
 export const HackathonsOrg = () => {
   return (
     <>
-      <Header variant="organizer" />
+      <Header variant="default" />
       <Container>
         <Flex justify="space-between">
           <Text size="xl" mb="md">
