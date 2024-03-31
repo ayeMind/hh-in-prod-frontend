@@ -19,7 +19,7 @@ export const CreateResume = () => {
                 <br/>
                 для «{hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон"}»
             </Text>
-            <Flex direction={"column"} gap={"sm"}>
+            <Flex direction={"column"} gap={"sm"} w={"300px"}>
                 <Button>
                     <Link to={`/hackathon/${hackathonId}/create-resume/custom`}>
                         Создать с нуля
