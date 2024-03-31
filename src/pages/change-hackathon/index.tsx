@@ -1,11 +1,16 @@
 import {Header} from "@/components/header";
 import {Autocomplete, Button, Container, FileInput, Flex, Image, NumberInput, TextInput} from "@mantine/core";
 import {IconPlus} from "@tabler/icons-react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import styles from './change-hackathon.module.css'
+import {useEffect, useState} from "react";
 
 export const ChangeHackathon = () => {
-    const hackathonId = "1";
+    const params = useParams();
+    const [hackathonId, setHackathonId] = useState<string>("1")
+    useEffect(() => {
+        setHackathonId(params.hackathon_id as string)
+    }, [])
     const participants = ['aboba@bk.ru', 'aboba1@bk.ru', 'aboba2@bk.ru', 'aboba3@bk.ru', 'aboba4@bk.ru', 'aboba5@bk.ru']
     return (
         <>
