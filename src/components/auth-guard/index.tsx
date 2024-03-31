@@ -16,13 +16,7 @@ export const AuthGuard: FC<AuthGuardProps> = memo(props => {
     
     useEffect(() => {
         if (!loading) {
-            if (user?.role == 'user' && props.role != 'user') {
-                navigate('/')
-            } else {
-                setRoleCorrect(true)
-            }
-            
-            if (user?.role == 'organizer' && props.role != 'organizer') {
+            if (user != null && user.role != props.role) {
                 navigate('/')
             } else {
                 setRoleCorrect(true)
@@ -32,8 +26,8 @@ export const AuthGuard: FC<AuthGuardProps> = memo(props => {
         if (props.role == 'any') {
             setRoleCorrect(true)
         }
-    }, [user, loading])
-
+    }, [user, loading, props.role])
+    
     if (!user || !roleCorrect) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
