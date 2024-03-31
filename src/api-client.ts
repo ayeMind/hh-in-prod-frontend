@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: process.env.API_URL,
+    baseURL: import.meta.env.VITE_API_CLIENT,
     validateStatus: (status) => status != 500,
 })
 
