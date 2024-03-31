@@ -9,14 +9,12 @@ const defaultLinks = [
 ]
 
 const organizerLinks = [
-    {link: '/', label: "Хакатон"},
-    {link: '/hackathon/1/teams', label: 'Команды'},
-    {link: '/resume', label: 'Мое резюме'},
+    {link: '/', label: "Хакатоны"},
     {link: '/profile', label: 'Профиль'},
 ];
 
 const userLinks = [
-  {link: '/', label: "Хакатон"},
+  {link: '/', label: "Хакатоны"},
   {link: '/hackathon/1/teams', label: 'Команды'},
   {link: '/resume', label: 'Мое резюме'},
   {link: '/profile', label: 'Профиль'},
