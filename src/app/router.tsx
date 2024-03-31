@@ -9,14 +9,15 @@ import {SignUpOrg} from "@/pages/sign-up/org";
 import {Login} from "@/pages/login";
 import {JoinHackathon} from "@/pages/join-hackathon";
 import {CreateResume} from "@/pages/create-resume";
-import { TeamOrgPage } from "@/pages/teams/org";
+import { TeamUserPage } from "@/pages/teams/user";
 import {ImportGithub} from "@/pages/imports/import-github";
 import {ImportHh} from "@/pages/imports/import-hh";
 import {ImportPdf} from "@/pages/imports/import-pdf";
-import { HackathonView } from "@/pages/hackathon-view";
+import { ResumeView } from "@/pages/resume-view";
 import {Profile} from "@/pages/profile";
 import {CreateHackathon} from "@/pages/create-hackathon";
 import {ChangeHackathon} from "@/pages/change-hackathon";
+import { MyResume } from "@/pages/my-resume";
 
 export const router = createBrowserRouter([
   {
@@ -70,11 +71,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/hackathon/:id/teams",
-    element: <TeamOrgPage/>,
+    element: <TeamUserPage/>,
   },
   {
     path: "/hackathon/:hackathon_id/resume/:user_id",
-    element: <HackathonView />
+    element: <ResumeView />
   },
   {
     path: "/profile",
@@ -88,4 +89,8 @@ export const router = createBrowserRouter([
     path: "/change-hackathon/:hackathon_id/",
     element: <ChangeHackathon />
   },
+  {
+    path: "/my-resume",
+    element: <MyResume />
+  }
 ]);

@@ -4,15 +4,15 @@ import { Header } from "@/components/header";
 import { AuthGuard } from "@/components/auth-guard";
 
 export const HackathonsUser = () => {
-  return (
-    <AuthGuard>
-      <Header />
-      <Container>
-        <Text size="xl" mb="md">
-          Ваши хакатоны
-        </Text>
-        <HackathonsList />
-      </Container>
-    </AuthGuard>
-  );
+    return (
+        <AuthGuard role='user'>
+            <Header variant='user'/>
+            <Container>
+                <Text size="xl" mb="md">
+                    Ваши хакатоны
+                </Text>
+                <HackathonsList/>
+            </Container>
+        </AuthGuard>
+    );
 };

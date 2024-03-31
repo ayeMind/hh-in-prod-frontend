@@ -2,11 +2,12 @@ import {Header} from "@/components/header";
 import {Autocomplete, Button, Container, FileInput, Flex, Image, NumberInput} from "@mantine/core";
 import {TextInput} from "@mantine/core";
 import {IconMinus, IconPlus} from "@tabler/icons-react";
+import { AuthGuard } from "@/components/auth-guard";
 
 export const CreateHackathon = () => {
     const participants = ['aboba@bk.ru', 'aboba1@bk.ru', 'aboba2@bk.ru', 'aboba3@bk.ru', 'aboba4@bk.ru', 'aboba5@bk.ru']
     return (
-        <>
+        <AuthGuard role='organizer'>
             <Header variant="organizer" />
             <Container size="md" pb={"100px"}>
                 <h1>Создание хакатона</h1>
@@ -57,6 +58,6 @@ export const CreateHackathon = () => {
                     <Button w={"fit-content"}>Создать</Button>
                 </Flex>
             </Container>
-        </>
+        </AuthGuard>
     )
 }
