@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classes from "./styles.module.css"
 
 const links = [
-    { link: '/', label: 'Команды' },
+    { link: '/hackathon/1/teams', label: 'Команды' },
     { link: '/resume', label: 'Мое резюме' },
     { link: '/profile', label: 'Профиль' },
 ];
