@@ -1,4 +1,5 @@
 import { Button, Container, Flex, Text } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react"
 import { HackathonsList } from "@/components/hackathons-list";
 import { Header } from "@/components/header";
 
@@ -12,7 +13,7 @@ export const HackathonsOrg = () => {
             Ваши хакатоны
           </Text>
           <Button>
-            <Text>+</Text>
+            <IconPlus stroke={2} size={20} />
           </Button>
         </Flex>
         <HackathonsList />
