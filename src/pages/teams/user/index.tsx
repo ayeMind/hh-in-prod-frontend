@@ -14,7 +14,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const is960 = useMediaQuery('(max-width: 960px) and (min-width: 651px)')
     const is650 = useMediaQuery('(max-width: 650px)')
 
-    return <AuthGuard role='organizer'>
+    return <AuthGuard role='user'>
         <Header variant='user'/>
         <Container size="md" mt="md">
             {/*  Head */ }
