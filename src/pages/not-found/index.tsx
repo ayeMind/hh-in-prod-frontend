@@ -1,5 +1,6 @@
-import { Flex, Text } from "@mantine/core";
-import classes from './styles.module.css'
+import { Flex, Text } from "@mantine/core"
+
+import classes from './not-found.module.css'
 
 export const NotFound = () => {
   return (

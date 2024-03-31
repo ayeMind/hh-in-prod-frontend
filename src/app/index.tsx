@@ -4,6 +4,7 @@ import { Providers } from './providers';
 import { router } from './router';
 
 import '@/app/reset.css'
+import '@/app/global.css'
 import '@mantine/core/styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

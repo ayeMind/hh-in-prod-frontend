@@ -1,5 +1,5 @@
 import { Card, SimpleGrid, Image, Group, Text } from "@mantine/core";
-import classes from "./styles.module.css"
+import classes from "./hackathons-list.module.css"
 
 const cards = [{"title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
 {"title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
