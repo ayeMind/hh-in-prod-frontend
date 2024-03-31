@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export const SignUpUser = () => {
     return (
         <Flex component={Center} h={"100vh"} direction={"column"}>
-            <Text size={"xl"} mb={"sm"}>Регистрация</Text>
+            <Text size={"xl"} mb={"sm"}>Регистрация участника</Text>
             <Flex w={"250px"} direction={"column"} gap={"xs"}>
                 <TextInput
                     placeholder={"Имя"}
@@ -22,12 +22,14 @@ export const SignUpUser = () => {
                 />
                 <Button>Создать аккаунт</Button>
             </Flex>
-
-            <Link
-                to={"/sign-up/org"}
-            >
+            <Link to={"/sign-up/org"}>
                 <Anchor size={"xs"}>
                         Зарегистрироваться как организация
+                </Anchor>
+            </Link>
+            <Link to={"/login"}>
+                <Anchor size={"xs"}>
+                    Есть аккаунт? Войти
                 </Anchor>
             </Link>
         </Flex>
