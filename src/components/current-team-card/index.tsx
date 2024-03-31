@@ -21,7 +21,7 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
 
     return <Flex direction="column" gap={ 7 } onClick={onClick} mb="xl">
         <div className={ styles.titleContainer }>
-            Вы состоите в команде <span>{ props.name }</span>
+            Вы состоите в команде
         </div>
         <Flex
             justify="space-between"

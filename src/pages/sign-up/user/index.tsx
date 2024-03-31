@@ -1,12 +1,12 @@
-import {Anchor, Button, Center, Flex, PasswordInput, Text, TextInput} from "@mantine/core";
+import {Anchor, Button, Center, Flex, PasswordInput, TextInput} from "@mantine/core";
 import {IconAt} from "@tabler/icons-react";
 import {Link} from "react-router-dom";
 
 export const SignUpUser = () => {
     return (
         <Flex component={Center} h={"100vh"} direction={"column"}>
-            <Text size={"xl"} mb={"sm"}>Регистрация участника</Text>
-            <Flex w={"300px"} direction={"column"} gap={"xs"}>
+            <h1>Регистрация участника</h1>
+            <Flex w={"300px"} direction={"column"} gap={"xs"} mt='sm'>
                 <TextInput
                     size='md'
                     placeholder={"Имя"}
