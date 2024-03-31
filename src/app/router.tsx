@@ -18,6 +18,7 @@ import {Profile} from "@/pages/profile";
 import {CreateHackathon} from "@/pages/create-hackathon";
 import {ChangeHackathon} from "@/pages/change-hackathon";
 import { MyResume } from "@/pages/my-resume";
+import {ChangeTeam} from "@/pages/change-team";
 
 export const router = createBrowserRouter([
   {
@@ -92,5 +93,9 @@ export const router = createBrowserRouter([
   {
     path: "/my-resume",
     element: <MyResume />
+  },
+  {
+    path: "hackathon/:hackathon_id/teams/:team_id/change",
+    element: <ChangeTeam />
   }
 ]);
