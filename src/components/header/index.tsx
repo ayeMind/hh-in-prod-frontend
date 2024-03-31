@@ -1,6 +1,4 @@
-import {Container, Group, Burger, Text, Flex} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import {Container, Group, Text, Flex} from "@mantine/core";
 import {Link} from "react-router-dom";
 
 const links = [
@@ -11,18 +9,11 @@ const links = [
 
 export const Header = () => {
 
-    const [opened, { toggle }] = useDisclosure(false);
-    const [active, setActive] = useState(links[0].link);
 
     const items = links.map((link) => (
         <Link
           key={link.label}
           to={link.link}
-          data-active={active === link.link || undefined}
-          onClick={(event) => {
-            event.preventDefault();
-            setActive(link.link);
-          }}
         >
           {link.label}
         </Link>
@@ -31,13 +22,12 @@ export const Header = () => {
 
   return (
     <header>
-      <Flex component={Container} size="md" justify={"space-between"} align={"center"}>
-        <Text>LOGO</Text>
-        <Group gap={5} visibleFrom="xs">
+      <Flex component={Container} size="md" justify={"space-between"} align={"center"} p="md">
+        <Text size="md">LOGO</Text>
+        <Group gap="md" >
           {items}
         </Group>
 
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
       </Flex>
     </header>
   );
