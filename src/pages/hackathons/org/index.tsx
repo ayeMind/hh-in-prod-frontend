@@ -6,7 +6,7 @@ import { AuthGuard } from "@/components/auth-guard";
 export const HackathonsOrg = () => {
   return (
     <AuthGuard>
-      <Header />
+      <Header variant="user" />
       <Container>
         <Flex justify="space-between">
           <Text size="xl" mb="md">
