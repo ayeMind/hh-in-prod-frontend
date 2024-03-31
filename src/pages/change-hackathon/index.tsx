@@ -1,25 +1,29 @@
 import {Header} from "@/components/header";
-import {Autocomplete, Button, Container, FileInput, Flex, Image, NumberInput} from "@mantine/core";
-import {TextInput} from "@mantine/core";
-import {IconMinus, IconPlus} from "@tabler/icons-react";
+import {Autocomplete, Button, Container, FileInput, Flex, Image, NumberInput, TextInput} from "@mantine/core";
+import {IconPlus} from "@tabler/icons-react";
+import {Link} from "react-router-dom";
+import styles from './change-hackathon.module.css'
 
-export const CreateHackathon = () => {
+export const ChangeHackathon = () => {
+    const hackathonId = "1";
     const participants = ['aboba@bk.ru', 'aboba1@bk.ru', 'aboba2@bk.ru', 'aboba3@bk.ru', 'aboba4@bk.ru', 'aboba5@bk.ru']
     return (
         <>
             <Header variant="organizer" />
             <Container size="md" pb={"100px"}>
-                <h1>Создание хакатона</h1>
+                <h1>Изменение хакатона</h1>
                 <Flex direction="column" gap="md">
                     <TextInput
                         label="Название хакатона"
                         placeholder="Введите название хакатона"
                     />
                     <NumberInput
+                        disabled
                         label="Мин количество участников в команде"
                         placeholder="Введите мин количество участников в команде"
                     />
                     <NumberInput
+                        disabled
                         label="Макс количество участников в команде"
                         placeholder="Введите макс количество участников в команде"
                     />
@@ -48,13 +52,11 @@ export const CreateHackathon = () => {
                             limit={5}
                         />
                         <Button size={"sm"}>
-                            <IconMinus stroke={2} size={20} />
-                        </Button>
-                        <Button size={"sm"}>
                             <IconPlus stroke={2} size={20} />
                         </Button>
                     </Flex>
-                    <Button w={"fit-content"}>Создать</Button>
+                    <Button w={"fit-content"}>Сохранить</Button>
+                    <Link to={`/hackathon/org/${hackathonId}/teams`} className={styles.link}>Смотреть команды</Link>
                 </Flex>
             </Container>
         </>

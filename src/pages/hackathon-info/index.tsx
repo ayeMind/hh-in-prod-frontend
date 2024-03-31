@@ -7,7 +7,7 @@ export const HackathonInfo = () => {
   return (
     <>
        <Header variant="user" />
-       <Container>
+       <Container pb={"100px"}>
             <h1>Хакатон PROD</h1>
             <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png" mah={350} radius="sm" mt="xs" />
             <Text mt="md">Описание самого крутого хакатона на свете</Text>

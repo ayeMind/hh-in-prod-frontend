@@ -16,6 +16,7 @@ import {ImportPdf} from "@/pages/imports/import-pdf";
 import { HackathonView } from "@/pages/hackathon-view";
 import {Profile} from "@/pages/profile";
 import {CreateHackathon} from "@/pages/create-hackathon";
+import {ChangeHackathon} from "@/pages/change-hackathon";
 
 export const router = createBrowserRouter([
   {
@@ -82,5 +83,9 @@ export const router = createBrowserRouter([
   {
     path: "/create-hackathon",
     element: <CreateHackathon />
+  },
+  {
+    path: "/change-hackathon",
+    element: <ChangeHackathon />
   },
 ]);
