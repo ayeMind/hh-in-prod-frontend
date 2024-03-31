@@ -5,7 +5,8 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { FC } from "react";
 
 const defaultLinks = [
-  {link: '/profile', label: "Профиль"}
+  {link: '/', label: "Хакатоны"},
+  {link: '/profile', label: "Профиль"},
 ]
 
 const organizerLinks = [
@@ -25,26 +26,37 @@ const getLinks = (variant: "default" | "organizer" | "user") => {
   else if (variant === "organizer") return organizerLinks
   else return userLinks;
 }
+
+const getDataActive = (link: string) => {
+  const path = window.location.pathname;
+  if (path.split('/')[1] === "hackathons" && link === '/') {   
+   return true;
+  }
+  else return path === link;
+}
 interface Props {
   variant: "default" | "organizer" | "user";
 }
 
 export const Header = ({ variant }: Props) => {
-
+  
   const links = getLinks(variant)
 
     const isMobile = useMediaQuery('(max-width: 500px)')
     const [opened, {toggle, close}] = useDisclosure();
 
-    const items = links.map((link) => (
+    const items = links.map((link) => {
+      const dataActive = getDataActive(link.link)
+       return (
         <Link
             className={ classes["link"] }
-            data-active={ window.location.pathname === link.link || undefined }
+            data-active={ dataActive || undefined }
             key={ link.label }
             to={ link.link }>
             { link.label }
         </Link>
-    ));
+       )
+  });
 
     return (
         <header className={ classes["header"] }>
