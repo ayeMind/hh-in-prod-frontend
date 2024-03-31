@@ -10,6 +10,9 @@ import {Login} from "@/pages/login";
 import {JoinHackathon} from "@/pages/join-hackathon";
 import {CreateResume} from "@/pages/create-resume";
 import { TeamOrgPage } from "@/pages/teams/org";
+import {ImportGithub} from "@/pages/imports/import-github";
+import {ImportHh} from "@/pages/imports/import-hh";
+import {ImportPdf} from "@/pages/imports/import-pdf";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +51,18 @@ export const router = createBrowserRouter([
   {
     path: "/hackathon/:id/create-resume",
     element: <CreateResume />,
+  },
+  {
+    path: "/hackathon/:id/create-resume/github",
+    element: <ImportGithub />,
+  },
+  {
+    path: "/hackathon/:id/create-resume/hh",
+    element: <ImportHh />,
+  },
+  {
+    path: "/hackathon/:id/create-resume/pdf",
+    element: <ImportPdf />,
   },
   {
     path: "/hackathon/:id/teams",
