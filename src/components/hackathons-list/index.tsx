@@ -8,16 +8,14 @@ const cards = [{"title": "Prod", "image": "https://raw.githubusercontent.com/man
 {"title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
 {"title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"}]
 
-export const HackatonsList = () => {
+export const HackathonsList = () => {
 
     const items = cards.map(card => (
         <Card className={classes["card"]} role="button" shadow="sm" padding="lg" radius="md" w={"auto"} withBorder>
         <Card.Section>
           <Image
             src={card.image}
-            height={160}
-            alt="Norway"
-            
+            height={160}            
           />
         </Card.Section>
   

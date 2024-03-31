@@ -1,21 +1,24 @@
-import {Container, Group, Text, Flex, Button, Divider} from "@mantine/core";
-import {Link} from "react-router-dom";
+import { Container, Group, Text, Flex, Divider } from "@mantine/core";
+import { Link } from "react-router-dom";
+import classes from "./styles.module.css"
 
 const links = [
-    { link: '/teams', label: 'Команды' },
+    { link: '/', label: 'Команды' },
     { link: '/resume', label: 'Мое резюме' },
     { link: '/profile', label: 'Профиль' },
 ];
 
+
 export const Header = () => {
+
     const items = links.map((link) => (
-        <Link
+        <Link className={classes["link"]}
+          data-active={window.location.pathname === link.link || undefined}
           key={link.label}
           to={link.link}
+
         >
-            <Button size={"xs"} fw={"500"}>
-                {link.label}
-            </Button>
+          {link.label}
         </Link>
     ));
 
@@ -28,7 +31,7 @@ export const Header = () => {
               {items}
             </Group>
           </Flex>
-            <Divider w={"100%"} mb="md" />
+            <Divider w={"100%"} mb="xl" />
         </Container>
     </header>
   );

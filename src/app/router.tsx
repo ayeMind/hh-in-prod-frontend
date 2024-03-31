@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Home } from "@/pages/home";
 import { NotFound } from "@/pages/not-found";
-import { HackatonsOrg } from "@/pages/hackatons-org";
-import { HackatonsUser } from "@/pages/hackatons-user";
+import { HackathonsOrg } from "@/pages/hackathons/org";
+import { HackathonsUser } from "@/pages/hackathons/user";
 import {SignUpUser} from "@/pages/sign-up/user";
 import {SignUpOrg} from "@/pages/sign-up/org";
 
@@ -13,12 +13,12 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />
   },
   {
-    path: "/hackatons/org",
-    element: <HackatonsOrg />
+    path: "/hackathons/org",
+    element: <HackathonsOrg />
   },
   {
-    path: "/hackatons/user",
-    element: <HackatonsUser />
+    path: "/hackathons/user",
+    element: <HackathonsUser />
   },
   {
     path: "/sign-up/user",

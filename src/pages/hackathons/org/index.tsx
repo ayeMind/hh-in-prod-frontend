@@ -1,8 +1,8 @@
 import { Button, Container, Flex, Text } from "@mantine/core";
-import { HackatonsList } from "@/components/hackatons-list";
+import { HackathonsList } from "@/components/hackathons-list";
 import { Header } from "@/components/header";
 
-export const HackatonsOrg = () => {
+export const HackathonsOrg = () => {
   return (
     <>
       <Header />
@@ -15,7 +15,7 @@ export const HackatonsOrg = () => {
             <Text>+</Text>
           </Button>
         </Flex>
-        <HackatonsList />
+        <HackathonsList />
       </Container>
     </>
   );
