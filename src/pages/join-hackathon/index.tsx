@@ -4,15 +4,18 @@ import {jwtDecode} from "jwt-decode";
 import {useSearchParams, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 
-
 export const JoinHackathon = () => {
+    const hackathons: {[key: string]: string} = {
+        "45": "Хакатон Prod",
+    }
     const [searchParams] = useSearchParams();
-    const [hackathonName, setHackathonName] = useState<string>();
+    const [hackathonId, setHackathonId] = useState<string>()
     const navigate = useNavigate();
     useEffect(() => {
         try {
-            setHackathonName(
-                (jwtDecode(searchParams.get("hackathon_name") as string) as any).name
+            console.log(jwtDecode(searchParams.get("hackathon_id") as string))
+            setHackathonId(
+                (jwtDecode(searchParams.get("hackathon_id") as string) as any).id
             )
         } catch (err) { navigate("/404") }
     }, [])
@@ -21,9 +24,9 @@ export const JoinHackathon = () => {
             <Text fw="500" size={"xl"} mb={"sm"} className={styles.title}>
                 Привет!
                 <br/>
-                Тебя пригласили на «{hackathonName ? hackathonName : "Хакатон"}»
+                Тебя пригласили на «{hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон"}»
             </Text>
-            <Button>Принять приглашение</Button>
+            <Button onClick={() => navigate(`/${hackathonId}/create-resume`)}>Принять приглашение</Button>
         </Flex>
     )
 }
