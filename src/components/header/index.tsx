@@ -17,7 +17,7 @@ const organizerLinks = [
 const userLinks = [
   {link: '/hackathons/user', label: "Хакатоны"},
   {link: '/hackathon/1/teams', label: 'Команды'},
-  {link: '/resume', label: 'Мое резюме'},
+  {link: '/hackathon/1/my-resume', label: 'Мое резюме'},
   {link: '/profile', label: 'Профиль'},
 ];
 

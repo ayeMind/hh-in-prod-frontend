@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
     element: <ChangeHackathon />
   },
   {
-    path: "/my-resume",
+    path: "/hackathon/:id/my-resume",
     element: <MyResume />
   }
 ]);
