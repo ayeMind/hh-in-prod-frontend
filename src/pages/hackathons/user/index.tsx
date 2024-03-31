@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 export const HackathonsUser = () => {
   return (
     <>
-      <Header />
+      <Header variant="user" />
       <Container>
         <Text size="xl" mb="md">
           Ваши хакатоны

@@ -11,7 +11,7 @@ export const Home = () => {
 
     return (
         <>
-            <Header/>
+            <Header variant="default" />
         </>
     );
 };

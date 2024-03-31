@@ -4,14 +4,37 @@ import classes from "./styles.module.css"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { FC } from "react";
 
-const links = [
+const defaultLinks = [
+  {link: '/profile', label: "Профиль"}
+]
+
+const organizerLinks = [
+    {link: '/', label: "Хакатон"},
     {link: '/hackathon/1/teams', label: 'Команды'},
     {link: '/resume', label: 'Мое резюме'},
     {link: '/profile', label: 'Профиль'},
 ];
 
+const userLinks = [
+  {link: '/', label: "Хакатон"},
+  {link: '/hackathon/1/teams', label: 'Команды'},
+  {link: '/resume', label: 'Мое резюме'},
+  {link: '/profile', label: 'Профиль'},
+];
 
-export const Header = () => {
+const getLinks = (variant: "default" | "organizer" | "user") => {
+  if (variant === "default") return defaultLinks;
+  else if (variant === "organizer") return organizerLinks
+  else return userLinks;
+}
+interface Props {
+  variant: "default" | "organizer" | "user";
+}
+
+export const Header = ({ variant }: Props) => {
+
+  const links = getLinks(variant)
+
     const isMobile = useMediaQuery('(max-width: 500px)')
     const [opened, {toggle, close}] = useDisclosure();
 

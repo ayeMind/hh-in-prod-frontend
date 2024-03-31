@@ -25,7 +25,7 @@ export const HackathonView = () => {
 
   return (
     <>
-       <Header />
+       <Header variant="user" />
        <Container>
         <Flex align="center" gap="md">
             <Avatar w={100} h={100} />
