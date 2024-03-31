@@ -22,8 +22,9 @@ export const SearchInput: FC<SearchInputProps> = memo(props => {
             value={ query }
             placeholder={ props.placeholder }
             onChange={ onChange }
+            size="md"
         />
-        <Button>
+        <Button size="md">
             <IconSearch size={ 18 }/>
         </Button>
     </Flex>

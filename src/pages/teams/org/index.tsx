@@ -38,6 +38,7 @@ export const TeamOrgPage: FC<TeamOrgPageProps> = memo(() => {
             {/* Search input */ }
             <SearchInput
                 onChange={ console.log }
+                placeholder="Найти команду"
             />
 
             {/* Teams list */ }
