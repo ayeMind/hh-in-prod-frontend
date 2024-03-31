@@ -3,9 +3,10 @@ import { Header } from "@/components/header"
 import { IconSearch } from "@tabler/icons-react";
 import classes from "./hackathon-info.module.css"
 import { MembersList } from "@/components/members-list";
+import { AuthGuard } from "@/components/auth-guard";
 export const HackathonInfo = () => {
   return (
-    <>
+    <AuthGuard>
        <Header />
        <Container>
             <h1>Хакатон PROD</h1>
@@ -21,7 +22,7 @@ export const HackathonInfo = () => {
             </div>
             <MembersList />
        </Container>
-    </>
+    </AuthGuard>
   );
 };
 

@@ -1,10 +1,11 @@
 import { Container, Text } from "@mantine/core";
 import { HackathonsList } from "@/components/hackathons-list";
 import { Header } from "@/components/header";
+import { AuthGuard } from "@/components/auth-guard";
 
 export const HackathonsUser = () => {
   return (
-    <>
+    <AuthGuard>
       <Header />
       <Container>
         <Text size="xl" mb="md">
@@ -12,6 +13,6 @@ export const HackathonsUser = () => {
         </Text>
         <HackathonsList />
       </Container>
-    </>
+    </AuthGuard>
   );
 };

@@ -3,6 +3,7 @@ import styles from './join-hackathon.module.css';
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import parseJwt from "@/utils/parse-jwt.ts";
+import { AuthGuard } from "@/components/auth-guard";
 
 export const JoinHackathon = () => {
     const hackathons: { [key: string]: string } = {
@@ -20,13 +21,16 @@ export const JoinHackathon = () => {
         }
     }, [])
     return (
-        <Flex component={ Center } h={ "100vh" } direction={ "column" }>
-            <Text fw="500" size={ "xl" } mb={ "sm" } className={ styles.title }>
-                Привет!
-                <br/>
-                Тебя пригласили на «{ hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон" }»
-            </Text>
-            <Button onClick={ () => navigate(`/hackathon/${ hackathonId }/create-resume`) }>Принять приглашение</Button>
-        </Flex>
+        <AuthGuard>
+            <Flex component={ Center } h={ "100vh" } direction={ "column" }>
+                <Text fw="500" size={ "xl" } mb={ "sm" } className={ styles.title }>
+                    Привет!
+                    <br/>
+                    Тебя пригласили на «{ hackathonId && hackathons[hackathonId] ? hackathons[hackathonId] : "Хакатон" }»
+                </Text>
+                <Button onClick={ () => navigate(`/hackathon/${ hackathonId }/create-resume`) }>Принять
+                    приглашение</Button>
+            </Flex>
+        </AuthGuard>
     )
 }
