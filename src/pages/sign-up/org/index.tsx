@@ -7,7 +7,7 @@ import { FormInput } from "@/components/form-input/form-input.tsx";
 import { FormPasswordInput } from "@/components/form-input/form-password-input.tsx";
 
 export const SignUpOrg = () => {
-    const {formik} = useSignupForm(false)
+    const {formik} = useSignupForm(true)
 
     return (
         <Flex component={ Center } h={ "100vh" } direction={ "column" }>
