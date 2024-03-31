@@ -19,7 +19,7 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
     
     const onClick = () => navigate(`/hackathon/${props.hackathonId}/teams/${props.id}`)
 
-    return <Flex direction="column" gap={ 7 } onClick={onClick}>
+    return <Flex direction="column" gap={ 7 } onClick={onClick} mb="xl">
         <div className={ styles.titleContainer }>
             Вы состоите в команде <span>{ props.name }</span>
         </div>
