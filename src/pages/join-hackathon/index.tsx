@@ -18,7 +18,7 @@ export const JoinHackathon = () => {
     }, [])
     return (
         <Flex component={Center} h={"100vh"} direction={"column"}>
-            <Text size={"xl"} mb={"sm"} className={styles.title}>
+            <Text fw="500" size={"xl"} mb={"sm"} className={styles.title}>
                 Привет!
                 <br/>
                 Тебя пригласили на «{hackathonName ? hackathonName : "Хакатон"}»
