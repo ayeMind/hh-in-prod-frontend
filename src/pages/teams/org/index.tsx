@@ -14,7 +14,7 @@ export const TeamOrgPage: FC<TeamOrgPageProps> = memo(() => {
     const is650 = useMediaQuery('(max-width: 650px)')
 
     return <>
-        <Header/>
+        <Header variant='user'/>
         <Container size="md" mt="md">
             {/*  Head */ }
             <Flex justify="space-between" mb='md' align='center'>
