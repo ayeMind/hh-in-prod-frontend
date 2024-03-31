@@ -10,6 +10,7 @@ import {Login} from "@/pages/login";
 import {JoinHackathon} from "@/pages/join-hackathon";
 import {CreateResume} from "@/pages/create-resume";
 import { TeamOrgPage } from "@/pages/teams/org";
+import { HackathonView } from "@/pages/hackathon-view";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,9 @@ export const router = createBrowserRouter([
   {
     path: "/hackathon/:id/teams",
     element: <TeamOrgPage/>,
-    errorElement: <NotFound/>
+  },
+  {
+    path: "/hackathon/:hackathon_id/resume/:user_id",
+    element: <HackathonView />
   }
 ]);
