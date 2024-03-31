@@ -4,7 +4,7 @@ export const MyResume = () => {
   return (
     <>
        <Header variant="user" />
-       
+       <Contai
     </>
   );
 };
