@@ -23,7 +23,7 @@ export const Header = () => {
     ));
 
   return (
-    <header>
+    <header className={classes["header"]}>
         <Container size="md">
           <Flex justify={"space-between"} align={"center"} p="md">
             <Text size="md" fw={"600"}>LOGO</Text>

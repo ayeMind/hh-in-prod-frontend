@@ -17,11 +17,11 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />
   },
   {
-    path: "/hackathons/org",
+    path: "/hackathons/org/:id",
     element: <HackathonsOrg />
   },
   {
-    path: "/hackathons/user",
+    path: "/hackathons/user/:id",
     element: <HackathonsUser />
   },
   {
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
     element: <SignUpOrg />
   },
   {
-    path: "/hackathon-info",
+    path: "/hackathon-info/:id",
     element: <HackathonInfo />
   },
   {

@@ -1,0 +1,12 @@
+.member-container {
+    border: 2px solid #f3f3f3;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+}
