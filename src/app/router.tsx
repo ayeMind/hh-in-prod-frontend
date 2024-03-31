@@ -3,6 +3,7 @@ import { Home } from "@/pages/home";
 import { NotFound } from "@/pages/not-found";
 import {SignUpUser} from "@/pages/sign-up/user";
 import {SignUpOrg} from "@/pages/sign-up/org";
+import { TeamOrgPage } from "@/pages/teams/org";
 
 export const router = createBrowserRouter([
   {
@@ -20,4 +21,9 @@ export const router = createBrowserRouter([
     element: <SignUpOrg />,
     errorElement: <NotFound />
   },
+  {
+    path: "/hackathon/:id/teams",
+    element: <TeamOrgPage/>,
+    errorElement: <NotFound/>
+  }
 ]);
