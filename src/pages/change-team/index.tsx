@@ -1,8 +1,25 @@
 import {Header} from "@/components/header";
-import {Container, Flex, TextInput, Text, Textarea, UnstyledButton, Button} from "@mantine/core";
+import {Container, Flex, TextInput, Text, UnstyledButton, Button} from "@mantine/core";
 import styles from './change-team.module.css'
+import {ITeamVacancy} from "@/models/ITeamVacancy";
+import {ChangeTeamVacancy} from "@/components/change-team-vacancy";
 
 export const ChangeTeam = () => {
+    const vacancies = [
+        {
+            id: 1,
+            name: 'Фронтендер',
+            keywords: ['React', 'Docker', 'TS'],
+            userId: null,
+        },
+        {
+            id: 2,
+            name: 'Бэкэндер',
+            keywords: ['Docker', 'Rest API', 'Python'],
+            userId: null,
+        },
+    ] as ITeamVacancy[]
+
     return (
         <>
             <Header variant={"user"} />
@@ -15,32 +32,9 @@ export const ChangeTeam = () => {
                     />
                     <Flex direction={"column"} gap={"md"}>
                         <Text fw={600} mb={"0"}>Вакансии</Text>
-                        <Flex direction={"column"} gap={"xs"}>
-                            <TextInput
-                                label="Название вакансии"
-                                placeholder="Навзание вакансии"
-                            />
-                            <Textarea
-                                label="Ключевые слова"
-                                placeholder="Ключевые слова (Например: Go, Postgres, Docker)"
-                            />
-                            <UnstyledButton>
-                                <Text size="sm" className={styles.delete_btn}>Удалить вакансию</Text>
-                            </UnstyledButton>
-                        </Flex>
-                        <Flex direction={"column"} gap={"xs"}>
-                            <TextInput
-                                label="Название вакансии"
-                                placeholder="Навзание вакансии"
-                            />
-                            <Textarea
-                                label="Ключевые слова"
-                                placeholder="Ключевые слова (Например: Go, Postgres, Docker)"
-                            />
-                            <UnstyledButton>
-                                <Text size="sm" className={styles.delete_btn}>Удалить вакансию</Text>
-                            </UnstyledButton>
-                        </Flex>
+                        { vacancies.map((vacancy: ITeamVacancy) => {
+                            return <ChangeTeamVacancy data={vacancy} deleteFunc={() => {}} />
+                        })}
                     </Flex>
                     <UnstyledButton>
                         <Text size="sm" className={styles.add_btn}>Создать вакансию</Text>
