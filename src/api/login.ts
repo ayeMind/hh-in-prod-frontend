@@ -14,11 +14,11 @@ export default async function login(payload: LoginPayload): Promise<LoginRespons
         data: payload,
     })
     
-    if (response.status == 200 && response.data.token != null) {
+    if (response.status === 200 && response.data.token != null) {
         return response.data.token
     }
     
-    if (response.status == 401) {
+    if (response.status === 401 || response.status === 400) {
         return 'invalid-credentials'
     }
     

@@ -1,11 +1,11 @@
 import { FC, memo } from "react";
-import { NumberInput, NumberInputProps } from "@mantine/core";
+import { TextInput, TextInputProps } from "@mantine/core";
 import { useField, useFormikContext } from "formik";
 
 export type FormNumberInputProps = {
     name: string
     placeholder?: string;
-} & NumberInputProps
+} & TextInputProps
 
 export const FormNumberInput: FC<FormNumberInputProps> = memo(props => {
     const [field, meta] = useField(props.name);
@@ -13,5 +13,10 @@ export const FormNumberInput: FC<FormNumberInputProps> = memo(props => {
 
     const error = !!meta.error && meta.touched ? meta.error : undefined
 
-    return <NumberInput { ...field } disabled={ isSubmitting } error={ error } { ...props } />
+    return <TextInput
+        type='number'
+        disabled={ isSubmitting }
+        error={ error }
+        { ...props }
+        { ...field }/>
 })

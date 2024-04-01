@@ -1,28 +1,17 @@
 import {Header} from "@/components/header";
-import {Autocomplete, Button, Container, FileInput, Flex, Image, NumberInput, TextInput} from "@mantine/core";
+import {Container} from "@mantine/core";
 import {IconPlus} from "@tabler/icons-react";
 import {Link, useParams} from "react-router-dom";
 import styles from './change-hackathon.module.css'
 import {useEffect, useState} from "react";
-import fetchHackathonById from "@/api/fetch-hackathon-by-id";
-import { IHackathon } from "@/models/IHackathon";
 
 export const ChangeHackathon = () => {
     const params = useParams();
-    const [hackathonId, setHackathonId] = useState<string>();
-    const [hackathon, setHackathon] = useState<IHackathon>();
-
+    const [hackathonId, setHackathonId] = useState<string>("1")
     useEffect(() => {
         setHackathonId(params.hackathon_id as string)
-
-        fetchHackathonById(parseInt(params.hackathon_id as string)).then(data => {
-            if (!data) return null;
-            setHackathon(data)
-            console.log(data);
-        })
-
     }, [])
-
+    const participants = ['aboba@bk.ru', 'aboba1@bk.ru', 'aboba2@bk.ru', 'aboba3@bk.ru', 'aboba4@bk.ru', 'aboba5@bk.ru']
     return (
         <>
             <Header variant="organizer" />
@@ -30,18 +19,15 @@ export const ChangeHackathon = () => {
                 <h1>Изменение хакатона</h1>
                 <Flex direction="column" gap="md">
                     <TextInput
-                        defaultValue={hackathon?.name}
                         label="Название хакатона"
                         placeholder="Введите название хакатона"
                     />
                     <NumberInput
-                        value={hackathon?.minParticipants}
                         disabled
                         label="Мин количество участников в команде"
                         placeholder="Введите мин количество участников в команде"
                     />
                     <NumberInput
-                        value={hackathon?.maxParticipants}
                         disabled
                         label="Макс количество участников в команде"
                         placeholder="Введите макс количество участников в команде"
@@ -51,12 +37,12 @@ export const ChangeHackathon = () => {
                             w={"100%"}
                             accept="image/png,image/jpeg"
                             label="Превью хакатона"
-                            placeholder="Загрузите картинку"
+                            placeholder="Введите загрузите картинку"
                             clearable
                         />
                         <Image
                             mt={"xs"}
-                            src={hackathon?.imageCover ? `${import.meta.env.VITE_BACKEND_URL}${hackathon.imageCover}` : '/img-placehoder.jpg'}
+                            src="../img-placeholder.jpg"
                             mah={350}
                             w={"100%"}
                             radius="sm"
@@ -64,10 +50,10 @@ export const ChangeHackathon = () => {
                     </Container>
                     <Flex justify={"space-between"} gap={"xs"} align={"flex-end"}>
                         <Autocomplete
-                            label={`Участники (Всего: ${hackathon?.participants.length})`}
+                            label={`Участники (Всего: ${participants.length})`}
                             placeholder={"Введите email участника"}
                             w={"100%"}
-                            data={hackathon?.participants.map(member => member.email)}
+                            data={participants}
                             limit={5}
                         />
                         <Button size={"sm"}>
