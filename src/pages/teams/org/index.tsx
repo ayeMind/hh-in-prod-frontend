@@ -24,8 +24,6 @@ export const TeamsOrg = () => {
             setTeams(data)
             setFilteredTeams(data)
             console.log(data);
-            
-            
         });
 
         fetchHackathon(parseInt(hackathon_id as string)).then(data => {

@@ -14,11 +14,14 @@ export const TeamDetailPage = memo(() => {
     const { user } = useUser()
     const params = useParams()
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
+    const [hackathonId, setHackathonId] = useState<number>(0)
     const navigate = useNavigate()
     useEffect(() => {
-        const id = parseInt(params.team_id ?? '')
-        if (id) {
-            getTeam(id).then(setTeamDetail)
+        const team_id = parseInt(params.team_id ?? '')
+        const hackathon_id = parseInt(params.hackathon_id ?? '')
+        if (team_id && hackathon_id) {
+            setHackathonId(hackathon_id)
+            getTeam(team_id).then(setTeamDetail)
         } else {
             navigate('/404')
         }
@@ -41,16 +44,20 @@ export const TeamDetailPage = memo(() => {
                     direction={ {base: 'column', sm: 'row'} }>
                     <h1>{teamDetail.name}</h1>
 
-                    <Button variant='transparent' px={ 0 }>Редактировать</Button>
+                    <Button
+                        hidden={!(user && user.id == teamDetail.creator)}
+                        variant='transparent'
+                        px={ 0 }
+                    >Редактировать</Button>
                 </Flex>
 
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
-                <TeamDetailParticipants members={teamDetail.members} />
+                <TeamDetailParticipants creator={teamDetail.creator} members={teamDetail.members} />
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
-                <TeamDetailVacancies team_id={teamDetail.id} />
+                <TeamDetailVacancies team_id={teamDetail.id} hackathon_id={hackathonId} />
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>

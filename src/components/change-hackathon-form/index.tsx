@@ -126,7 +126,7 @@ export const ChangeHackathonForm = (
                     </Flex>
                     <Button w={"fit-content"} type={"submit"}>Сохранить</Button>
                     <Link
-                        to={`/hackathon/org/${hackathon.id}/teams`}
+                        to={`/hackathon/${hackathon.id}/org/teams`}
                         className={styles.link}
                     >Смотреть команды</Link>
                 </Flex>
