@@ -4,15 +4,40 @@ import classes from "./teams-org.module.css";
 import { SearchInput } from "@/components/search-input";
 import { IconPlus } from "@tabler/icons-react";
 import { AuthGuard } from "@/components/auth-guard";
-
-const teams = [{"id": 1, "name": "Крутая команда", "members": [1, 2, 3, 4, 5, 6, 7]}, {"id": 2, "name": "Крутая команда", "members": [2, 5, 8, 1, 4, 6]}, {"id": 3, "name": "Крутая команда", "members": [5, 6, 7]}, {"id": 4, "name": "Крутая команда", "members": [10, 12, 13]}]
+import { useEffect, useState } from "react";
+import fetchTeams from "@/api/fetch-teams";
+import { useParams } from "react-router-dom";
+import { ITeam } from "@/models/ITeam";
+import { IHackathon } from "@/models/IHackathon";
+import fetchHackathon from "@/api/fetch-hackathon";
 
 export const TeamsOrg = () => {
 
+    const { hackathon_id } = useParams()
+    const [teams, setTeams] = useState<ITeam[]>([]);
+    const [hackathon, setHackathon] = useState<IHackathon | null>(null);
+
+    useEffect(() => {
+        fetchTeams(parseInt(hackathon_id as string)).then(data => {
+            if (!data) return null;
+            setTeams(data)
+            console.log(data);
+            
+            
+        });
+
+        fetchHackathon(parseInt(hackathon_id as string)).then(data => {
+            if (!data) return null;
+            setHackathon(data);
+            console.log(data);
+            
+        })
+    }, [])
+
     const items = teams.map((team, index) => {
 
-        const maxMembersAmount = 8;
-        const membersAmount = team.members.length;
+        const maxMembersAmount = hackathon?.max_participants;
+        const membersAmount = team.teamMembers.length;
 
         const avatarsItems = Array(maxMembersAmount).fill(0).map((_, index) => (
             (index < membersAmount) ? (

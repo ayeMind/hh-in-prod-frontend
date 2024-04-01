@@ -12,7 +12,10 @@ export default async function fetchTeams(hackathon_id: number): Promise<ITeam[]>
         return (response.data as any[]).map(json => {
             return { 
                 id: json.id,
-                hackathonId: json.hackathon
+                hackathonId: json.hackathon,
+                name: json.name,
+                teamLeaderUserId: json.creator,
+                teamMembers: json.team_members,
             }
         })
     }

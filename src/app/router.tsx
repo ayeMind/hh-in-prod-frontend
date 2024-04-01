@@ -21,7 +21,7 @@ import { MyResume } from "@/pages/my-resume";
 import {ChangeTeam} from "@/pages/change-team";
 import { SuitableCandidates } from "@/pages/suitable-candidates";
 import { TeamDetailPage } from "@/pages/team-detail/user";
-import { TeamsOrg } from "@/pages/teams-org";
+import { TeamsOrg } from "@/pages/teams/org";
 
 export const router = createBrowserRouter([
   {
