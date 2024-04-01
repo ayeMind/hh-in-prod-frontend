@@ -19,6 +19,7 @@ import {CreateHackathon} from "@/pages/create-hackathon";
 import {ChangeHackathon} from "@/pages/change-hackathon";
 import { MyResume } from "@/pages/my-resume";
 import {ChangeTeam} from "@/pages/change-team";
+import { TeamDetailPage } from "@/pages/team-detail/user";
 
 export const router = createBrowserRouter([
   {
@@ -97,5 +98,9 @@ export const router = createBrowserRouter([
   {
     path: "hackathon/:hackathon_id/teams/:team_id/change",
     element: <ChangeTeam />
+  },
+  {
+    path: "hackathon/:hackathon_id/teams/:team_id",
+    element: <TeamDetailPage/>
   }
 ]);

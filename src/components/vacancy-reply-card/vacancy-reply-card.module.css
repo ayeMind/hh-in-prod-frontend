@@ -1,11 +1,20 @@
-.member-container {
+.card {
+    padding: 16px;
     border: 1px solid var(--stroke-color);
-    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.member-container {
     display: flex;
     align-items: center;
     gap: 12px;
     border-radius: 8px;
     cursor: pointer;
+    margin-bottom: 16px;
 }
 
 .member-info {

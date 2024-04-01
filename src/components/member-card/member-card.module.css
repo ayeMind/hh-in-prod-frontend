@@ -1,6 +1,6 @@
 .member-container {
     border: 1px solid var(--stroke-color);
-    padding: 6px;
+    padding: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
