@@ -9,16 +9,24 @@ import useUser from "@/hooks/use-user";
 import {useNavigate, useParams} from "react-router-dom";
 import {ITeam} from "@/models/ITeam";
 import getTeam from "@/api/get-team";
+import fetchTeamVacancies from "@/api/fetch-team-vacancies";
+import fetchMyTeam from "@/api/fetch-my-team";
+import { ITeamVacancy } from "@/models/ITeamVacancy";
 
 export const TeamDetailPage = memo(() => {
     const { user } = useUser()
     const params = useParams()
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
     const [hackathonId, setHackathonId] = useState<number>(0)
+    const [listVacancies, setListVacancies] = useState<ITeamVacancy[]>([])
+    const [myTeam, setMyTeam] = useState<ITeam | null>(null)   
     const navigate = useNavigate()
+
     useEffect(() => {
         const team_id = parseInt(params.team_id ?? '')
         const hackathon_id = parseInt(params.hackathon_id ?? '')
+        fetchTeamVacancies(team_id).then(setListVacancies)
+        fetchMyTeam(hackathon_id).then(setMyTeam)
         if (team_id && hackathon_id) {
             setHackathonId(hackathon_id)
             getTeam(team_id).then(setTeamDetail)
@@ -26,6 +34,7 @@ export const TeamDetailPage = memo(() => {
             navigate('/404')
         }
     }, [])
+
     if(!teamDetail) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
@@ -53,11 +62,11 @@ export const TeamDetailPage = memo(() => {
 
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
-                <TeamDetailParticipants creator={teamDetail.creator} members={teamDetail.members} />
+                <TeamDetailParticipants listVacancies={listVacancies} creator={teamDetail.creator} members={teamDetail.members} />
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
-                <TeamDetailVacancies team_id={teamDetail.id} hackathon_id={hackathonId} />
+                <TeamDetailVacancies listVacancies={listVacancies} myTeam={myTeam} />
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
