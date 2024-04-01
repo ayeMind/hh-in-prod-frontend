@@ -15,12 +15,11 @@ export const TeamDetailParticipants = ({ listVacancies, members, creator }: { li
                 { members.map((member: IUser) => {
                     return <MemberCard key={member.id} name={member.name} email={member.email} />
                 }) }
-                <Button
-                    hidden={!(user && user.id == creator)}
-                    variant='outline'
-                    h="100%" mih='50px'
-                    onClick={ open }
-                >Добавить</Button>
+                {
+                    user && user.id == creator 
+                        ? <Button variant='outline' h="100%" mih='50px' onClick={ open }>Добавить</Button>
+                        : <div/>
+                }
             </SimpleGrid>
 
             {/* Invite popup  */ }
