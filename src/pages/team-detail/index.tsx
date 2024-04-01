@@ -50,7 +50,7 @@ export const TeamDetailPage = memo(() => {
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
-                <TeamDetailVacancies />
+                <TeamDetailVacancies team_id={teamDetail.id} />
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
