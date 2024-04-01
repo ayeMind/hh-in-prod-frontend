@@ -22,6 +22,7 @@ import {ChangeTeam} from "@/pages/change-team";
 import { SuitableCandidates } from "@/pages/suitable-candidates";
 import { TeamsOrg } from "@/pages/teams/org";
 import { TeamDetailPage } from "@/pages/team-detail";
+import { CreateTeam } from "@/pages/create-team";
 
 export const router = createBrowserRouter([
   {
@@ -102,7 +103,7 @@ export const router = createBrowserRouter([
     element: <ChangeTeam />
   },
   {
-    path:  "hackathon/:hackathon_id/team/:team_id/vacancy/:vacancy_id/candidates",
+    path:  "hackathon/:hackathon_id/teams/:team_id/vacancy/:vacancy_id/candidates",
     element: <SuitableCandidates />
   },
   {
@@ -113,4 +114,8 @@ export const router = createBrowserRouter([
     path: "hackathon/:hackathon_id/teams/:team_id",
     element: <TeamDetailPage/>
   },
+  {
+    path: 'hackathon/:hackathon_id/teams/create',
+    element: <CreateTeam/>,
+  }
 ]);
