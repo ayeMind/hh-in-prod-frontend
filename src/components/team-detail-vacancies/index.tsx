@@ -12,6 +12,7 @@ export const TeamDetailVacancies = ({ listVacancies, myTeam }: { listVacancies: 
             { listVacancies?.map((vacancy: ITeamVacancy) => {
                 return <VacancyCard
                     key={ vacancy.id }
+                    id={ vacancy.id }
                     canSendResume={!!(user && user.role && user.role == "user" && !myTeam)}
                     keywords={ vacancy.keywords }
                     name={ vacancy.name }

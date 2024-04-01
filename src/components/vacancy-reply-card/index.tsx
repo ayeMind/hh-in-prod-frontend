@@ -15,6 +15,7 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
     const [candidate, setCandidate] = useState<IUser | null>()
     useEffect(() => {
         fetchProfileById(props.candidate_id).then(setCandidate)
+        console.log("ABOBA", props.candidate_id)
     }, [])
     return <div className={ styles.card } onClick={ props.onResumeClick }>
         <div className={ styles["member-container"] }>
