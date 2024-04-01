@@ -109,13 +109,13 @@ export const CreateHackathonForm = () => {
                         />
                         <Image
                             mt={"xs"}
-                            src={previewLink && file ? previewLink : "../img-placeholder.jpg"}
+                            src={previewLink}
                             mah={350}
                             w={"100%"}
                             radius="sm"
                         />
                     </Container>
-                    <Flex justify={"space-between"} gap={"xs"} align={"flex-end"}>
+                    <Flex justify={"space-between"} gap={"xs"} align={participantInputError ? "center" : "flex-end"}>
                         <Autocomplete
                             error={participantInputError}
                             label={`Участники (Всего: ${participants.length})`}

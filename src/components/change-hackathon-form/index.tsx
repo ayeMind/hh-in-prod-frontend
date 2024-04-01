@@ -106,7 +106,7 @@ export const ChangeHackathonForm = (
                             radius="sm"
                         />
                     </Container>
-                    <Flex justify={"space-between"} gap={"xs"} align={"flex-end"}>
+                    <Flex justify={"space-between"} gap={"xs"} align={participantInputError ? "center" : "flex-end"}>
                         <Autocomplete
                             error={participantInputError}
                             label={`Участники (Всего: ${hackathon.participants.length})`}
