@@ -1,27 +1,27 @@
-import {memo, useEffect, useState} from "react";
+import { memo, useEffect, useState } from "react";
 import { AuthGuard } from "@/components/auth-guard";
 import { Header } from "@/components/header";
-import {Button, Center, Container, Flex, Loader} from "@mantine/core";
-import {TeamDetailParticipants} from "@/components/team-detail-participants";
-import {TeamDetailVacancies} from "@/components/team-detail-vacancies";
-import {TeamDetailVacanciesResponses} from "@/components/team-detali-vacancies-responses";
+import { Button, Center, Container, Flex, Loader } from "@mantine/core";
+import { TeamDetailParticipants } from "@/components/team-detail-participants";
+import { TeamDetailVacancies } from "@/components/team-detail-vacancies";
+import { TeamDetailVacanciesResponses } from "@/components/team-detali-vacancies-responses";
 import useUser from "@/hooks/use-user";
-import {useNavigate, useParams} from "react-router-dom";
-import {ITeam} from "@/models/ITeam";
+import { useNavigate, useParams } from "react-router-dom";
+import { ITeam } from "@/models/ITeam";
 import getTeam from "@/api/get-team";
 import fetchTeamVacancies from "@/api/fetch-team-vacancies";
 import fetchMyTeam from "@/api/fetch-my-team";
 import { ITeamVacancy } from "@/models/ITeamVacancy";
-import {IVacancyResponse} from "@/models/IVacancyResponse";
+import { IVacancyResponse } from "@/models/IVacancyResponse";
 import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 
 export const TeamDetailPage = memo(() => {
-    const { user } = useUser()
+    const {user} = useUser()
     const params = useParams()
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
     const [hackathonId, setHackathonId] = useState<number>(0)
     const [listVacancies, setListVacancies] = useState<ITeamVacancy[]>([])
-    const [myTeam, setMyTeam] = useState<ITeam | null>(null)   
+    const [myTeam, setMyTeam] = useState<ITeam | null>(null)
     const [vacancyResponses, setVacanciesResponses] = useState<IVacancyResponse[]>([])
     const navigate = useNavigate()
 
@@ -42,14 +42,14 @@ export const TeamDetailPage = memo(() => {
         }
     }, [])
 
-    if(!teamDetail) {
+    if (!teamDetail) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
         </Center>
     }
     return <AuthGuard role='any'>
         <>
-            <Header variant={user?.role ? user?.role : 'default'}/>
+            <Header variant={ user?.role ? user?.role : 'default' }/>
 
             <Container size='md'>
                 {/* Head */ }
@@ -58,26 +58,32 @@ export const TeamDetailPage = memo(() => {
                     align={ {base: 'flex-start', sm: 'center'} }
                     mb='50'
                     direction={ {base: 'column', sm: 'row'} }>
-                    <h1>{teamDetail.name}</h1>
+                    <h1>{ teamDetail.name }</h1>
 
-                    <Button
-                        hidden={!(user && user.id == teamDetail.creator)}
-                        variant='transparent'
-                        px={ 0 }
-                    >Редактировать</Button>
+                    {
+                        user && user.id == teamDetail.creator
+                            ? <Button
+                                onClick={() => navigate(`/hackathon/${hackathonId}/teams/${teamDetail!.id}/change`)}
+                                variant='transparent'
+                                px={ 0 }>
+                                Редактировать
+                            </Button>
+                            : <div/>
+                    }
                 </Flex>
 
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
-                <TeamDetailParticipants listVacancies={listVacancies} creator={teamDetail.creator} members={teamDetail.members} />
+                <TeamDetailParticipants listVacancies={ listVacancies } creator={ teamDetail.creator }
+                                        members={ teamDetail.members }/>
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
-                <TeamDetailVacancies listVacancies={listVacancies} myTeam={myTeam} />
+                <TeamDetailVacancies listVacancies={ listVacancies } myTeam={ myTeam }/>
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses vacancy_responses={vacancyResponses} hackathon_id={hackathonId} />
+                <TeamDetailVacanciesResponses vacancy_responses={ vacancyResponses } hackathon_id={ hackathonId }/>
 
             </Container>
         </>

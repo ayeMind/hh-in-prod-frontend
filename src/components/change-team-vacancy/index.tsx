@@ -1,25 +1,45 @@
-import {Flex, Text, Textarea, TextInput, UnstyledButton} from "@mantine/core";
+import { Flex, Text, Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import styles from "@/pages/change-team/change-team.module.css";
-import {ITeamVacancy} from "@/models/ITeamVacancy";
+import { EditableVacancy } from "@/pages/change-team";
+import { FC } from "react";
 
-export const ChangeTeamVacancy = ({ deleteFunc, data }: {
-    deleteFunc: () => void,
-    data: ITeamVacancy
-}) => {
+type ChangeTeamVacancyProps = {
+    vacancy: EditableVacancy
+    onChange: (vacancy: EditableVacancy) => void
+    onDelete: (vacancy: EditableVacancy) => void
+}
+
+export const ChangeTeamVacancy: FC<ChangeTeamVacancyProps> = (props) => {
     return (
-        <Flex direction={"column"} gap={"xs"}>
+        <Flex direction={ "column" } gap={ "xs" }>
             <TextInput
                 label="Название вакансии"
-                placeholder="Навзание вакансии"
-                value={data.name}
+                placeholder="Название вакансии"
+                onChange={ e => {
+                    props.onChange({
+                        ...props.vacancy,
+                        name: e.target.value,
+                    })
+                } }
+                value={ props.vacancy.name }
             />
             <Textarea
                 label="Ключевые слова"
                 placeholder="Ключевые слова (Например: Go, Postgres, Docker)"
-                value={data.keywords.join(', ')}
+                onChange={ e => {
+                    props.onChange({
+                        ...props.vacancy,
+                        keywords: e.target.value,
+                    })
+                } }
+                value={ props.vacancy.keywords }
             />
-            <UnstyledButton onClick={() => deleteFunc}>
-                <Text size="sm" className={styles.delete_btn}>Удалить вакансию</Text>
+            <UnstyledButton onClick={ () => props.onDelete(props.vacancy) }>
+                <Text
+                    size="sm"
+                    className={ styles.delete_btn }>
+                    Удалить вакансию
+                </Text>
             </UnstyledButton>
         </Flex>
     )

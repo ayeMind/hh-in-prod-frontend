@@ -4,7 +4,7 @@ import { SearchInput } from "@/components/search-input";
 import { IconPlus } from "@tabler/icons-react";
 import { AuthGuard } from "@/components/auth-guard";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ITeam } from "@/models/ITeam";
 import { IHackathon } from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
@@ -12,7 +12,7 @@ import fetchTeams from "@/api/fetch-teams";
 import classes from "./teams-org.module.css";
 
 export const TeamsOrg = () => {
-
+    const navigate = useNavigate()
     const { hackathon_id } = useParams()
     const [teams, setTeams] = useState<ITeam[]>([])
     const [filteredTeams, setFilteredTeams] = useState<ITeam[]>([])
@@ -50,7 +50,10 @@ export const TeamsOrg = () => {
         ))
     
         return (
-            <div key={index} className={classes["border-container"]}>
+            <div 
+                key={index}
+                className={classes["border-container"]}
+                onClick={() => navigate(`/hackathon/${hackathon_id}/teams/${team.id}`)}>
                 <Flex gap="xs" wrap='wrap'>
                     {avatarsItems}
                 </Flex>
@@ -74,7 +77,6 @@ export const TeamsOrg = () => {
             <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} >
                 {items}
             </SimpleGrid>
-            
        </Container>
     </AuthGuard>
   );

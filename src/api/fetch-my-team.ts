@@ -4,8 +4,7 @@ import { ITeam } from "@/models/ITeam";
 export default async function fetchMyTeam(hackathon_id: number): Promise<ITeam | null> {
     const response = await apiClient({
         method: 'get', 
-        url: '/hackathons/get_user_team',
-        params: { hackathon_id: hackathon_id}
+        url: `/hackathons/get_user_team/${hackathon_id}`,
     })
 
     if (response.status == 200) {

@@ -9,7 +9,7 @@ export default async function fetchMe(): Promise<IUser | null> {
     
     if (response.status == 200) {
         return {
-            id: parseInt(localStorage.getItem('user_id') as string),
+            id: response.data.id,
             name: response.data.username,
             email: response.data.email,
             role: response.data.is_organizator ? 'organizer' : 'user',
