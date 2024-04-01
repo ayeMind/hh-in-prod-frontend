@@ -18,15 +18,14 @@ export const ResumeView = () => {
     useEffect(() => {
         fetchResume(parseInt(user_id as string), parseInt(hackathon_id as string)).then(data => {
             setResume(data)
-            if (data?.telegram) setContacts(prev => [...prev, data.telegram as string ])
-            if (data?.hhLink) setContacts(prev => [...prev, data.hhLink as string])
-            if (data?.personalWebsite) setContacts(prev => [...prev, data.personalWebsite as string])
+            const contacts = [data?.telegram, data?.githubLink, data?.hhLink].filter(contact => !!contact)
+            setContacts(contacts as string[])
             return;
-        })
+        })  
     }, [])
 
     const contactsItems = contacts.map(contact => (
-        <Text mb="md">{contact}</Text>
+        <Text mt="md">{contact}</Text>
     ))
 
     const techSkillsItems = resume?.techStack.map(skill => (

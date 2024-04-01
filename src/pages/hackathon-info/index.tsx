@@ -40,7 +40,7 @@ export const HackathonInfo = () => {
             <Space h="md" />
             <SearchInput onChange={(search) => setFilteredMembers(members.filter(member => member.email.includes(search) || member.name.includes(search)))} />
             <Space h="md" />
-            <MembersList members={filteredMembers} />
+            <MembersList hackathon_id={parseInt(hackathon_id as string)} members={filteredMembers} />
        </Container>
     </AuthGuard>
   );
