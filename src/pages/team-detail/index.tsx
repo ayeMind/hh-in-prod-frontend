@@ -25,7 +25,10 @@ export const TeamDetailPage = memo(() => {
         if (team_id && hackathon_id) {
             setHackathonId(hackathon_id)
             getTeam(team_id).then(setTeamDetail)
-            getTeamVacanciesResponses(team_id).then(setVacanciesResponses)
+            getTeamVacanciesResponses(team_id).then(res => {
+                setVacanciesResponses(res)
+                console.log(res)
+            })
         } else {
             navigate('/404')
         }

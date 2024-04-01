@@ -1,10 +1,10 @@
 import apiClient from "@/api-client.ts";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 
-export default async function getTeamVacancies(teamId: number): Promise<IVacancyResponse[]> {
+export default async function getTeamVacanciesResponses(teamId: number): Promise<IVacancyResponse[]> {
     const response = await apiClient({
         method: 'get',
-        url: `/teams/team_vacancies?id=${ teamId }`,
+        url: `/teams/get_applies_for_team?id=${ teamId }`,
     })
 
     if (response.status == 200) {
