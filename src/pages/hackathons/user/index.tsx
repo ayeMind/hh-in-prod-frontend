@@ -11,7 +11,7 @@ export const HackathonsUser = () => {
                 <Text size="xl" mb="md">
                     Ваши хакатоны
                 </Text>
-                <HackathonsList/>
+                <HackathonsList hackathons={[]}/>
             </Container>
         </AuthGuard>
     );

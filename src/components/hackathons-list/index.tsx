@@ -1,38 +1,50 @@
 import { Card, SimpleGrid, Image, Group, Text } from "@mantine/core";
 import classes from "./hackathons-list.module.css"
+import { IHackathon } from "@/models/IHackathon.ts";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
-const cards = [{"id": 0, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
-{"id": 1, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
-{"id": 2, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
-{"id": 3, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
-{"id": 4, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"},
-{"id": 5, "title": "Prod", "image": "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png", "description": "Some description"}]
+type HackathonsListProps = {
+    hackathons: IHackathon[]
+}
 
-export const HackathonsList = () => {
+export const HackathonsList: FC<HackathonsListProps> = (props) => {
+    const navigate = useNavigate()
 
-    const items = cards.map(card => (
-        <Card key={card.id} className={classes["card"]} role="button" shadow="sm" padding="lg" radius="md" w={"auto"} withBorder>
-        <Card.Section>
-          <Image
-            src={card.image}
-            height={160}            
-          />
-        </Card.Section>
-  
-        <Group justify="space-between" mt="md" mb="xs">
-          <Text fw={500}>Norway Fjord Adventures</Text>
-        </Group>
-  
-        <Text size="sm" c="dimmed">
-            {card.description}
-        </Text>
-      </Card>
+    const items = props.hackathons.map(hackathon => (
+        <Card
+            onClick={ () => navigate(`/change-hackathon/${ hackathon.id }`) }
+            key={ hackathon.id }
+            className={ classes["card"] }
+            role="button"
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            w={ "auto" }
+            withBorder>
+            <Card.Section>
+                <Image
+                    src={ `${ import.meta.env.VITE_BACKEND_URL }${ hackathon.imageCover }` }
+                    height={ 160 }
+                />
+            </Card.Section>
+
+            <Group justify="space-between" mt="md" mb="xs">
+                <Text fw={ 500 }>
+                    { hackathon.name }
+                </Text>
+            </Group>
+
+            <Text size="sm" c="dimmed">
+                { hackathon.description }
+            </Text>
+        </Card>
     ))
 
-  return (
-    <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} spacing="md" >
-       {items}
-    </SimpleGrid>
-  );
+    return (
+        <SimpleGrid cols={ {base: 1, xs: 2, sm: 3} } spacing="md">
+            { items }
+        </SimpleGrid>
+    );
 };
 
