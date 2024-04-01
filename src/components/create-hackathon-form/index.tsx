@@ -3,51 +3,62 @@ import {Autocomplete, Button, Container, FileInput, Flex, Image} from "@mantine/
 import {FormInput} from "@/components/form-input/form-input";
 import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
 import {FormNumberInput} from "@/components/form-input/form-number-input";
-import {IconPlus} from "@tabler/icons-react";
-import {Link, useNavigate} from "react-router-dom";
-import styles from "@/pages/change-hackathon/change-hackathon.module.css";
+import {IconMinus, IconPlus} from "@tabler/icons-react";
+import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {createFormik} from "@/utils/create-formik";
-import {IHackathon} from "@/models/IHackathon";
-import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
-import changeHackathon from "@/api/change-hackathon";
+import createHackathon, {CreateHackathonPayload} from "@/api/create-hackathon";
 
-export const ChangeHackathonForm = (
-    { hackathon, updateHackathonFunc }: { hackathon: IHackathon, updateHackathonFunc: () => void }
-) => {
+export const CreateHackathonForm = () => {
     const navigate = useNavigate()
 
     const [file, setFile] = useState<File | null>(null)
-    const [previewLink, setPreviewLink] = useState<string>(
-        hackathon.imageCover ?
-            `${import.meta.env.VITE_BACKEND_URL}${hackathon.imageCover}` :
-            '/img-placeholder.jpg'
-    )
+    const [previewLink, setPreviewLink] = useState<string>('/img-placeholder.jpg')
     const [previewError, setPreviewError] = useState<string>('')
 
-    const participants = hackathon.participants.map(item => item.email)
+    const [participants, setParticipants] = useState<string[]>([])
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
 
     const addParticipant = (email: string) => {
         if(participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
-        else {
-            addParticipantToHackathon(hackathon.id, email).then((res) => {
-                if(!res) setParticipantInputError("Непредвимиая ошибка")
-            })
-            updateHackathonFunc()
-        }
+        else setParticipants([...participants, email])
+    }
+    const deleteParticipant = (email: string) => {
+        if(!participants.includes(email)) setParticipantInputError("В списке нет такого участника")
+        else setParticipants(participants.filter((item) => item != email))
     }
 
     const formik = createFormik({
         initialValues: {
-            name: hackathon.name,
-            description: hackathon.description,
-            min_participants: hackathon.min_participants,
-            max_participants: hackathon.max_participants,
+            name: '',
+            description: '',
+            min_participants: 1,
+            max_participants: 5,
         },
-        onSubmit: async (values) => {
-            changeHackathon(hackathon.id, file, values).then(res => {
+        onSubmit: async (values, formikHelpers) => {
+            if(!previewLink || previewLink == '/img-placeholder.jpg' || !file) {
+                setPreviewError('Ошибка загрузки картинки')
+                return;
+            }
+            if(!(values.max_participants <= 10 && values.max_participants >= 1)) {
+                formikHelpers.setFieldError('max_participants', 'Введите кол-во участников от 1 до 10')
+                return
+            }
+            if(values.min_participants < 1 || values.min_participants >= 10) {
+                formikHelpers.setFieldError('min_participants', 'Введите кол-во участников от 1 до 10')
+                return
+            }
+            if(values.min_participants > values.max_participants) {
+                formikHelpers.setFieldError('min_participants', 'Минимальное количество участников не может превышать максимальное')
+                return
+            }
+            const data = {
+                ...values,
+                participants: participants,
+            } as CreateHackathonPayload
+
+            createHackathon(file, data).then(res => {
                 if(!res) setParticipantInputError("Непредвиденная ошибка")
                 else navigate('/')
             })
@@ -71,13 +82,11 @@ export const ChangeHackathonForm = (
                     <FormNumberInput
                         name="min_participants"
                         label="Мин количество участников в команде"
-                        disabled
                         placeholder="Введите мин количество участников в команде"
                     />
                     <FormNumberInput
                         name="max_participants"
                         label="Макс количество участников в команде"
-                        disabled
                         placeholder="Введите макс количество участников в команде"
                     />
                     <Container p={"0"} w={"100%"}>
@@ -100,7 +109,7 @@ export const ChangeHackathonForm = (
                         />
                         <Image
                             mt={"xs"}
-                            src={previewLink}
+                            src={previewLink && file ? previewLink : "../img-placeholder.jpg"}
                             mah={350}
                             w={"100%"}
                             radius="sm"
@@ -109,7 +118,7 @@ export const ChangeHackathonForm = (
                     <Flex justify={"space-between"} gap={"xs"} align={"flex-end"}>
                         <Autocomplete
                             error={participantInputError}
-                            label={`Участники (Всего: ${hackathon.participants.length})`}
+                            label={`Участники (Всего: ${participants.length})`}
                             placeholder={"Введите email участника"}
                             value={participantInputValue}
                             onChange={(e) => {
@@ -120,15 +129,14 @@ export const ChangeHackathonForm = (
                             data={participants}
                             limit={5}
                         />
+                        <Button size={"sm"} onClick={() => deleteParticipant(participantInputValue)}>
+                            <IconMinus stroke={2} size={20} />
+                        </Button>
                         <Button size={"sm"} onClick={() => addParticipant(participantInputValue)}>
                             <IconPlus stroke={2} size={20} />
                         </Button>
                     </Flex>
-                    <Button w={"fit-content"} type={"submit"}>Сохранить</Button>
-                    <Link
-                        to={`/hackathon/org/${hackathon.id}/teams`}
-                        className={styles.link}
-                    >Смотреть команды</Link>
+                    <Button w={"fit-content"} type={"submit"}>Создать</Button>
                 </Flex>
             </Form>
         </Formik>
