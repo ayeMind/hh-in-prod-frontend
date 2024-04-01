@@ -31,7 +31,7 @@ export const TeamInvitePopup: FC<TeamInvitePopupProps> = memo(props => {
                 return;
             }
 
-            sendTeamInviteEmail(selectedVacancy.id, { "email": values.emailq })
+            sendTeamInviteEmail(selectedVacancy.id, { "email": values.email })
             
         },
     })

@@ -5,7 +5,7 @@ import {ITeamVacancy} from "@/models/ITeamVacancy";
 import useUser from "@/hooks/use-user";
 import {ITeam} from "@/models/ITeam";
 
-export const TeamDetailVacancies = ({ listVacancies, myTeam }: { listVacancies: ITeamVacancy[] | null, myTeam: ITeam, team_id: number, hackathon_id: number }) => {
+export const TeamDetailVacancies = ({ listVacancies, myTeam }: { listVacancies: ITeamVacancy[], myTeam: ITeam | null, } ) => {
    const { user } = useUser()
      
     return (
