@@ -12,6 +12,8 @@ import getTeam from "@/api/get-team";
 import fetchTeamVacancies from "@/api/fetch-team-vacancies";
 import fetchMyTeam from "@/api/fetch-my-team";
 import { ITeamVacancy } from "@/models/ITeamVacancy";
+import {IVacancyResponse} from "@/models/IVacancyResponse";
+import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 
 export const TeamDetailPage = memo(() => {
     const { user } = useUser()
@@ -20,6 +22,7 @@ export const TeamDetailPage = memo(() => {
     const [hackathonId, setHackathonId] = useState<number>(0)
     const [listVacancies, setListVacancies] = useState<ITeamVacancy[]>([])
     const [myTeam, setMyTeam] = useState<ITeam | null>(null)   
+    const [vacancyResponses, setVacanciesResponses] = useState<IVacancyResponse[]>([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -30,6 +33,10 @@ export const TeamDetailPage = memo(() => {
         if (team_id && hackathon_id) {
             setHackathonId(hackathon_id)
             getTeam(team_id).then(setTeamDetail)
+            getTeamVacanciesResponses(team_id).then(res => {
+                setVacanciesResponses(res)
+                console.log(res)
+            })
         } else {
             navigate('/404')
         }
@@ -70,7 +77,7 @@ export const TeamDetailPage = memo(() => {
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses />
+                <TeamDetailVacanciesResponses vacancy_responses={vacancyResponses} />
 
             </Container>
         </>

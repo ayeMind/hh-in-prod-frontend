@@ -81,8 +81,8 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                     filteredTeams.map((team, i) => {
                         return <TeamCard
                             key={ `t-${ i }` }
-                            hackathonId={ 123 }
-                            id={ 1 }
+                            hackathonId={ parseInt(hackathon_id ?? '') }
+                            id={ team.id }
                             members={ team.members.length }
                             maxMembers={ hackathon?.max_participants ? hackathon.max_participants : 1 }
                             name={team.name}
