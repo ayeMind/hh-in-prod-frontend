@@ -5,10 +5,14 @@ import { Button, Container, Flex, SimpleGrid } from "@mantine/core";
 import { MemberCard } from "@/components/member-card";
 import { VacancyCard } from "@/components/vacancy-card";
 import { VacancyReplyCard } from "@/components/vacancy-reply-card";
+import { TeamInvitePopup } from "@/components/team-invite-popup";
+import { useDisclosure } from "@mantine/hooks";
 
 export type TeamDetailPageProps = {}
 
 export const TeamDetailPage: FC<TeamDetailPageProps> = memo(() => {
+    const [opened, {close, open}] = useDisclosure(false)
+
     return <AuthGuard role='user'>
         <>
             <Header variant='user'/>
@@ -17,12 +21,12 @@ export const TeamDetailPage: FC<TeamDetailPageProps> = memo(() => {
                 {/* Head */ }
                 <Flex
                     justify='space-between'
-                    align={ {base: 'flex-start', md: 'center'} }
+                    align={ {base: 'flex-start', sm: 'center'} }
                     mb='50'
-                    direction={ {base: 'column', md: 'row'} }>
+                    direction={ {base: 'column', sm: 'row'} }>
                     <h1>Название команды</h1>
 
-                    <Button variant='transparent' px={0}>Редактировать</Button>
+                    <Button variant='transparent' px={ 0 }>Редактировать</Button>
                 </Flex>
 
                 {/*  Участники   */ }
@@ -30,7 +34,7 @@ export const TeamDetailPage: FC<TeamDetailPageProps> = memo(() => {
                 <SimpleGrid cols={ {base: 1, xs: 2, sm: 3} } spacing="md" mt={ 12 } mb={ 36 }>
                     <MemberCard name='Иван Иванов' email='vanya@gmail.com'/>
                     <MemberCard name='Петя Петров' email='petya@gmail.com'/>
-                    <Button variant='outline' h="100%" mih='50px'>Добавить</Button>
+                    <Button variant='outline' h="100%" mih='50px' onClick={ open }>Добавить</Button>
                 </SimpleGrid>
 
                 {/* Вакансии */ }
@@ -53,7 +57,17 @@ export const TeamDetailPage: FC<TeamDetailPageProps> = memo(() => {
                     <VacancyReplyCard name='Петя Петров' email='petya@gmail.com'/>
                 </SimpleGrid>
 
+
             </Container>
+
+            {/* Invite popup  */ }
+            <TeamInvitePopup
+                opened={ opened }
+                onClose={ close }
+                onSubmit={ email => {
+                    close()
+                    console.log(email)
+                } }/>
         </>
     </AuthGuard>
 })
