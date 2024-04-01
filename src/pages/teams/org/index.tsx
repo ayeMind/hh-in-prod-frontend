@@ -1,15 +1,15 @@
 import { Header } from "@/components/header";
 import { Avatar, Container, Flex, SimpleGrid, Space, Text } from "@mantine/core";
-import classes from "./teams-org.module.css";
 import { SearchInput } from "@/components/search-input";
 import { IconPlus } from "@tabler/icons-react";
 import { AuthGuard } from "@/components/auth-guard";
 import { useEffect, useState } from "react";
-import fetchTeams from "@/api/fetch-teams";
 import { useParams } from "react-router-dom";
 import { ITeam } from "@/models/ITeam";
 import { IHackathon } from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
+import fetchTeams from "@/api/fetch-teams";
+import classes from "./teams-org.module.css";
 
 export const TeamsOrg = () => {
 
@@ -39,7 +39,7 @@ export const TeamsOrg = () => {
     const items = filteredTeams.map((team, index) => {
 
         const maxMembersAmount = hackathon?.max_participants;
-        const membersAmount = team.teamMembers.length;
+        const membersAmount = team.members.length;
 
         const avatarsItems = Array(maxMembersAmount).fill(0).map((_, index) => (
             (index < membersAmount) ? (

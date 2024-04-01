@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useState, useEffect } from "react";
 import { Button, Container, Flex, SimpleGrid } from "@mantine/core";
 import { Header } from "@/components/header";
 import { IconPlus } from "@tabler/icons-react";
@@ -7,12 +7,38 @@ import { SearchInput } from "@/components/search-input";
 import { TeamCard } from "@/components/team-card";
 import { useMediaQuery } from "@mantine/hooks";
 import { AuthGuard } from "@/components/auth-guard";
+import fetchTeams from "@/api/fetch-teams";
+import { ITeam } from "@/models/ITeam";
+import { useParams } from "react-router-dom"
+import fetchHackathon from "@/api/fetch-hackathon";
+import { IHackathon } from "@/models/IHackathon";
 
 export type TeamUserPageProps = {}
 
 export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const is960 = useMediaQuery('(max-width: 960px) and (min-width: 651px)')
     const is650 = useMediaQuery('(max-width: 650px)')
+
+    const { hackathon_id } = useParams()
+    const [teams, setTeams] = useState<ITeam[]>([])
+    const [filteredTeams, setFilteredTeams] = useState<ITeam[]>([])
+    const [hackathon, setHackathon] = useState<IHackathon | null>(null);
+
+    useEffect(() => {
+        fetchTeams(parseInt(hackathon_id as string)).then(data => {
+            if (!data) return null;
+            setTeams(data)
+            setFilteredTeams(data)
+            console.log(data);
+        });
+
+        fetchHackathon(parseInt(hackathon_id as string)).then(data => {
+            if (!data) return null;
+            setHackathon(data);
+            console.log(data);  
+        })
+        
+    }, [])
 
     return <AuthGuard role='user'>
         <Header variant='user'/>
@@ -38,21 +64,21 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
 
             {/* Search input */ }
             <SearchInput
-                onChange={ console.log }
+                onChange={search => setFilteredTeams(teams.filter(team => team.name.includes(search)))}
                 placeholder="Найти команду"
             />
 
             {/* Teams list */ }
             <SimpleGrid cols={ is960 ? 2 : is650 ? 1 : 3 } mt='md' spacing="md" mb="xl">
                 {
-                    new Array(15).fill('').map((_, i) => {
+                    filteredTeams.map((team, i) => {
                         return <TeamCard
                             key={ `t-${ i }` }
                             hackathonId={ 123 }
                             id={ 1 }
-                            members={ 2 }
-                            maxMembers={ 5 }
-                            name='Крутая команда'
+                            members={ team.members.length }
+                            maxMembers={ hackathon?.max_participants ? hackathon.max_participants : 1 }
+                            name={team.name}
                             vacancies={ [
                                 {
                                     name: 'Фронтенд Разработчик',
