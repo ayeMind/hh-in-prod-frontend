@@ -14,13 +14,15 @@ import fetchHackathon from "@/api/fetch-hackathon";
 export const TeamsOrg = () => {
 
     const { hackathon_id } = useParams()
-    const [teams, setTeams] = useState<ITeam[]>([]);
+    const [teams, setTeams] = useState<ITeam[]>([])
+    const [filteredTeams, setFilteredTeams] = useState<ITeam[]>([])
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
 
     useEffect(() => {
         fetchTeams(parseInt(hackathon_id as string)).then(data => {
             if (!data) return null;
             setTeams(data)
+            setFilteredTeams(data)
             console.log(data);
             
             
@@ -34,7 +36,7 @@ export const TeamsOrg = () => {
         })
     }, [])
 
-    const items = teams.map((team, index) => {
+    const items = filteredTeams.map((team, index) => {
 
         const maxMembersAmount = hackathon?.max_participants;
         const membersAmount = team.teamMembers.length;
@@ -59,13 +61,17 @@ export const TeamsOrg = () => {
         )}
     )
 
+    const filterItems = (search: string) => {
+        setFilteredTeams(teams.filter(team => team.name.includes(search)))
+    }
+
   return (
     <AuthGuard role="organizer">
        <Header variant="organizer" />
        <Container>
             <h1>Команды</h1>
             <Space h="md" />
-            <SearchInput placeholder="Поиск команд" onChange={()=>{}}/>
+            <SearchInput placeholder="Поиск команд" onChange={search => filterItems(search)} />
             <Space h="md" />
             <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} >
                 {items}
