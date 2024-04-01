@@ -5,6 +5,6 @@ export interface ITeam {
     name: string
     hackathonId: number
     members: IUser[]
-    hackathon: number
+    hackathonId: number
     creator: number
 }
