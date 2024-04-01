@@ -4,9 +4,8 @@ import {TeamInvitePopup} from "@/components/team-invite-popup";
 import {useDisclosure} from "@mantine/hooks";
 import {IUser} from "@/models/IUser";
 import useUser from "@/hooks/use-user";
-import { ITeamVacancy } from "@/models/ITeamVacancy";
 
-export const TeamDetailParticipants = ({ listVacancies, members, creator }: { listVacancies: ITeamVacancy[], members: IUser[], creator: number }) => {
+export const TeamDetailParticipants = ({ team_id, members, creator }: { team_id: number, members: IUser[], creator: number }) => {
     const [opened, {close, open}] = useDisclosure(false)
     const { user } = useUser()
     return (
@@ -24,7 +23,7 @@ export const TeamDetailParticipants = ({ listVacancies, members, creator }: { li
 
             {/* Invite popup  */ }
             <TeamInvitePopup
-                listVacancies={listVacancies}
+                team_id={team_id}
                 opened={ opened }
                 onClose={ close }
                 onSubmit={ email => {

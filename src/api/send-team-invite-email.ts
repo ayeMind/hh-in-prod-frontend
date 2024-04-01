@@ -4,11 +4,11 @@ export interface TeamInviteEmailPayload {
     "email": string;
 }
 
-export default async function sendTeamInviteEmail(vacancy_id: number, data: TeamInviteEmailPayload): Promise<boolean>  {
+export default async function sendTeamInviteEmail(team_id: number, data: TeamInviteEmailPayload): Promise<boolean>  {
     
     const response = await apiClient({
         method: "post",
-        url: `/teams/${vacancy_id}/add_user`,
+        url: `/teams/${team_id}/add_user`,
         data: data
     })
 

@@ -74,7 +74,7 @@ export const TeamDetailPage = memo(() => {
 
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
-                <TeamDetailParticipants listVacancies={ listVacancies } creator={ teamDetail.creator }
+                <TeamDetailParticipants team_id={ teamDetail.id } creator={ teamDetail.creator }
                                         members={ teamDetail.members }/>
 
                 {/* Вакансии */ }
