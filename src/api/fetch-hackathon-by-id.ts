@@ -19,7 +19,7 @@ export default async function fetchHackathonById(id: number): Promise<IHackathon
                 id: e.id,
                 name: e.username,
                 email: e.email,
-                role: e.is_organizator ? 'organizator' : 'user',
+                role: e.is_organizator ? 'organizer' : 'user',
                 age: e.age,
                 city: e.city,
                 workExp: e.work_experience,

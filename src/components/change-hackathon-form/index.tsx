@@ -1,0 +1,122 @@
+import {Form, Formik} from "formik";
+import {Autocomplete, Button, Container, FileInput, Flex, Image} from "@mantine/core";
+import {FormInput} from "@/components/form-input/form-input";
+import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
+import {FormNumberInput} from "@/components/form-input/form-number-input";
+import {IconPlus} from "@tabler/icons-react";
+import {Link} from "react-router-dom";
+import styles from "@/pages/change-hackathon/change-hackathon.module.css";
+import {useState} from "react";
+import {createFormik} from "@/utils/create-formik";
+import {IHackathon} from "@/models/IHackathon";
+import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
+
+export const ChangeHackathonForm = (
+    { hackathon, updateHackathonFunc }: { hackathon: IHackathon, updateHackathonFunc: () => void }
+) => {
+    const [file, setFile] = useState<File | null>(null)
+    const [previewLink, setPreviewLink] = useState<string>('')
+    const [previewError, setPreviewError] = useState<string>('')
+
+    const participants = hackathon.participants.map(item => item.email)
+    const [participantInputError, setParticipantInputError] = useState<string>('')
+    const [participantInputValue, setParticipantInputValue] = useState<string>('')
+    const addParticipant = (email: string) => {
+        if(participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
+        addParticipantToHackathon(hackathon.id, email).then((res) => {
+            if(!res) setParticipantInputError("Непредвимиая ошибка")
+        })
+        updateHackathonFunc()
+    }
+    const formik = createFormik({
+        initialValues: {
+            name: hackathon.name,
+            description: hackathon.description,
+            min_participants: hackathon.min_participants,
+            max_participants: hackathon.max_participants,
+        },
+        onSubmit: async (values, formikHelpers) => {
+
+        }
+    })
+
+    return (
+        <Formik { ...formik }>
+            <Form>
+                <Flex direction="column" gap="md">
+                    <FormInput
+                        name="name"
+                        label="Название хакатона"
+                        placeholder="Введите название хакатона"
+                    />
+                    <FormTextareaInput
+                        name="description"
+                        label="Описание хакатона"
+                        placeholder="Введите описание хакатона"
+                    />
+                    <FormNumberInput
+                        name="min_participants"
+                        disabled
+                        label="Мин количество участников в команде"
+                        placeholder="Введите мин количество участников в команде"
+                    />
+                    <FormNumberInput
+                        name="max_participants"
+                        disabled
+                        label="Макс количество участников в команде"
+                        placeholder="Введите макс количество участников в команде"
+                    />
+                    <Container p={"0"} w={"100%"}>
+                        <FileInput
+                            w={"100%"}
+                            value={file}
+                            onChange={(e) => {
+                                if(e) {
+                                    setPreviewError('')
+                                    setFile(e)
+                                    setPreviewLink(URL.createObjectURL(e))
+                                } else {
+                                    setPreviewError('Некорректное изображение')
+                                }
+                            }}
+                            accept="image/png,image/jpeg"
+                            label="Превью хакатона"
+                            placeholder="Введите загрузите картинку"
+                            error={previewError}
+                        />
+                        <Image
+                            mt={"xs"}
+                            src={previewLink ? previewLink : "../img-placeholder.jpg"}
+                            mah={350}
+                            w={"100%"}
+                            radius="sm"
+                        />
+                    </Container>
+                    <Flex justify={"space-between"} gap={"xs"} align={"flex-end"}>
+                        <Autocomplete
+                            error={participantInputError}
+                            label={`Участники (Всего: ${hackathon.participants.length})`}
+                            placeholder={"Введите email участника"}
+                            value={participantInputValue}
+                            onChange={(e) => {
+                                setParticipantInputValue(e)
+                                setParticipantInputError('')
+                            }}
+                            w={"100%"}
+                            data={participants}
+                            limit={5}
+                        />
+                        <Button size={"sm"} onClick={() => addParticipant(participantInputValue)}>
+                            <IconPlus stroke={2} size={20} />
+                        </Button>
+                    </Flex>
+                    <Button w={"fit-content"}>Сохранить</Button>
+                    <Link
+                        to={`/hackathon/org/${hackathon.id}/teams`}
+                        className={styles.link}
+                    >Смотреть команды</Link>
+                </Flex>
+            </Form>
+        </Formik>
+    )
+}
