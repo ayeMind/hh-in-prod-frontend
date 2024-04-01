@@ -42,7 +42,7 @@ export const ChangeHackathon = () => {
                         />
                         <Image
                             mt={"xs"}
-                            src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
+                            src="../img-placeholder.jpg"
                             mah={350}
                             w={"100%"}
                             radius="sm"
