@@ -20,6 +20,8 @@ import {ChangeHackathon} from "@/pages/change-hackathon";
 import { MyResume } from "@/pages/my-resume";
 import {ChangeTeam} from "@/pages/change-team";
 import { SuitableCandidates } from "@/pages/suitable-candidates";
+import { TeamDetailPage } from "@/pages/team-detail/user";
+
 
 export const router = createBrowserRouter([
   {
@@ -102,5 +104,9 @@ export const router = createBrowserRouter([
   {
     path:  "hackathon/:hackathon_id/team/:team_id/vacancy/:vacancy_id/candidates",
     element: <SuitableCandidates />
+  },
+  {
+    path: "hackathon/:hackathon_id/teams/:team_id",
+    element: <TeamDetailPage/>
   },
 ]);
