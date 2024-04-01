@@ -1,19 +1,12 @@
 import { SimpleGrid } from "@mantine/core";
 import { MemberCard } from "@/components/member-card";
+import { IUser } from "@/models/IUser";
 
-const members = [
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-    {name: "Иван Иванов", email: "ivan@gmail.com"},
-]
+interface Props {
+  members: IUser[];
+}
 
-export const MembersList = () => {
+export const MembersList = ({members}: Props) => {
 
     const items = members.map((member, index) => (
         <MemberCard key={index} { ...member } />

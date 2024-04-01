@@ -24,6 +24,8 @@ export default async function fetchMyHackathons(): Promise<IHackathon[]>  {
                     workExp: e.work_experience,
                 })),
                 teamsIds: [],
+                minParticipants: json.min_participants,
+                maxParticipants: json.max_participants,
             }
         })
     }
