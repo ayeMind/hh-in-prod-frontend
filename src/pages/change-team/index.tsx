@@ -109,7 +109,7 @@ const Content: FC<ContentProps> = (props) => {
                 vacancies: vacancies.map(item => ({
                     id: item.id < 0 ? 0 : item.id,
                     name: item.name,
-                    keywords: item.keywords.split(',').map(x => x.trim()),
+                    keywords: [...new Set(item.keywords.split(',').map(x => x.trim()))],
                 }))
             }
         )

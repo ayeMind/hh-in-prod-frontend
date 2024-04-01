@@ -5,25 +5,25 @@ import classes from "./suitable-candidates.module.css"
 import { AuthGuard } from "@/components/auth-guard";
 import { useMediaQuery } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { IMemberSuggestion } from "@/models/IMemberSuggestion.ts";
+import { useParams } from "react-router-dom";
+import getSuitableCandidates from "@/api/get-suitable-candidates.ts";
 
-const members = [
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-    {name: "Иван Иванов", description: "Очень крутой человек", techSkills: ["React", "Angular", "WASM"]},
-]
 
 export const SuitableCandidates = () => {
     const isPhone = useMediaQuery('(max-width: 450px)')
+    const [suggestions, setSuggestions] = useState<IMemberSuggestion[]>([])
+    const { vacancy_id } = useParams()
     
-    const items = members.map((member, index) => {
-
-        const badges = member.techSkills.map((skill, index) => (
-            <Badge key={ index }>{ skill }</Badge>
+    useEffect(() => {
+        getSuitableCandidates(parseInt(vacancy_id ?? ''))
+            .then(setSuggestions)
+    }, [])
+    
+    const items = suggestions.map((suggestion, index) => {
+        const badges = suggestion.matches.map((skill, index) => (
+            <Badge key={ `${suggestion.user.id}-${index}` }>{ skill }</Badge>
         ))
 
         return (
@@ -33,7 +33,7 @@ export const SuitableCandidates = () => {
                         <div className={ classes["member-bio"] }>
                             <Avatar/>
                             <div className={ classes["member-info"] }>
-                                <Text>{ member.name }</Text>
+                                <Text>{ suggestion.user.name }</Text>
                             </div>
                         </div>
 
@@ -45,12 +45,12 @@ export const SuitableCandidates = () => {
                             }
                         </Button>
                     </Flex>
-
-                    <Text mb="xs">{ member.description }</Text>
-
-                    <Flex gap="xs">
-                        { badges }
-                    </Flex>
+                    {
+                        suggestion.bio && <Text mb="xs">{ suggestion.bio }</Text>
+                    }
+                    {
+                        badges && <Flex gap="xs">{ badges }</Flex>
+                    }
                 </div>
             </div>
         )
@@ -62,8 +62,7 @@ export const SuitableCandidates = () => {
             <Container mb="md">
                 <h1>Подходящие кандидаты</h1>
                 <Space h="md"/>
-                <SearchInput placeholder="Поиск команд" onChange={ () => {
-                } }/>
+                <SearchInput placeholder="Поиск команд" onChange={ () => {} }/>
                 <Space h="md"/>
                 <SimpleGrid cols={ 1 } spacing="md">
                     { items }
