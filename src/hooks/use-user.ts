@@ -34,5 +34,5 @@ export default function useUser(forceAuthPush = true) {
         }
     }, [user])
 
-    return {user, loading}
+    return {user, loading, setUser}
 }
