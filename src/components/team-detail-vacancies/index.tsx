@@ -1,6 +1,5 @@
 import {VacancyCard} from "@/components/vacancy-card";
 import {SimpleGrid} from "@mantine/core";
-import {useState} from "react";
 import {ITeamVacancy} from "@/models/ITeamVacancy";
 import useUser from "@/hooks/use-user";
 import {ITeam} from "@/models/ITeam";
