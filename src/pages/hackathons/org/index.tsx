@@ -4,25 +4,33 @@ import { useNavigate } from "react-router-dom"
 import { HackathonsList } from "@/components/hackathons-list";
 import { Header } from "@/components/header";
 import { AuthGuard } from "@/components/auth-guard";
+import { useEffect, useState } from "react";
+import { IHackathon } from "@/models/IHackathon.ts";
+import fetchMyHackathons from "@/api/fetch-my-hackathons.ts";
 
 export const HackathonsOrg = () => {
+    const [hackathons, setHackathons] = useState<IHackathon[]>([])
 
-  const navigate = useNavigate();
+    useEffect(() => {
+        fetchMyHackathons().then(setHackathons)
+    }, [])
 
-  return (
-    <AuthGuard role='organizer'>
-      <Header variant='default' />
-      <Container>
-        <Flex justify="space-between">
-          <Text size="xl" mb="md">
-            Ваши хакатоны
-          </Text>
-          <Button onClick={() => navigate("/create-hackathon")}>
-            <IconPlus />
-          </Button>
-        </Flex>
-        <HackathonsList />
-      </Container>
-    </AuthGuard>
-  );
+    const navigate = useNavigate();
+
+    return (
+        <AuthGuard role='organizer'>
+            <Header variant='default'/>
+            <Container>
+                <Flex justify="space-between">
+                    <Text size="xl" mb="md">
+                        Ваши хакатоны
+                    </Text>
+                    <Button onClick={ () => navigate("/create-hackathon") }>
+                        <IconPlus/>
+                    </Button>
+                </Flex>
+                <HackathonsList hackathons={ hackathons }/>
+            </Container>
+        </AuthGuard>
+    );
 };
