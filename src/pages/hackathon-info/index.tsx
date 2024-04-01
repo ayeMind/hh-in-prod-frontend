@@ -7,18 +7,22 @@ import { useParams } from "react-router-dom";
 import classes from "./hackathon-info.module.css";  
 import fetchHackathonById from "@/api/fetch-hackathon-by-id";
 import fetchProfileById from "@/api/fetch-profile-by-id";
+import { useEffect, useState } from "react";
+import { IUser } from "@/models/IUser";
 
 export const HackathonInfo = () => {
 
   const { hackathon_id } = useParams();
-  
-  fetchHackathonById(parseInt(hackathon_id as string)).then(data => {
-    console.log(data);
-  });
+  const [members, setMembers] = useState([] as IUser[])
 
-  fetchProfileById(22).then(data => {
-    console.log(data);
-  })
+  useEffect(() => {
+    fetchHackathonById(parseInt(hackathon_id as string)).then(data => {
+      if (!data?.participants) return;
+      setMembers(data.participants)
+      console.log(data);
+    });
+  }, [])
+  
   
   return (
     <AuthGuard role='user'>
