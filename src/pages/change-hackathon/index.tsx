@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {ChangeHackathonForm} from "@/components/change-hackathon-form";
 import {IHackathon} from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
+import {Center, Loader} from "@mantine/core";
 
 export const ChangeHackathon = () => {
     const params = useParams();
@@ -32,7 +33,9 @@ export const ChangeHackathon = () => {
     }, [])
 
     if (!hackathon) {
-        return <h1>loading</h1>
+        return <Center w='100vw' h='100vh'>
+            <Loader size="md"/>
+        </Center>
     }
 
     return (
