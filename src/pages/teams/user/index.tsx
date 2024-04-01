@@ -12,7 +12,6 @@ import { ITeam } from "@/models/ITeam";
 import { useParams } from "react-router-dom"
 import fetchHackathon from "@/api/fetch-hackathon";
 import { IHackathon } from "@/models/IHackathon";
-import useUser from "@/hooks/use-user";
 import fetchMyTeam from "@/api/fetch-my-team";
 
 export type TeamUserPageProps = {}

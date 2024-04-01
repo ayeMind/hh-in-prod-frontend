@@ -15,6 +15,7 @@ export default async function fetchTeams(hackathon_id: number): Promise<ITeam[]>
                 hackathonId: json.hackathon,
                 name: json.name,
                 members: json.team_members,
+                creator: json.creator,
             }
         })
     }
