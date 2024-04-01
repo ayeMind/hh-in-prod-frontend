@@ -23,7 +23,7 @@ export default async function updateProfile(payload: UpdateProfilePayload): Prom
     if (response.status == 201) {
         return {
             id: response.data.id,
-            name: response.data.name,
+            name: response.data.username,
             email: response.data.email,
             role: response.data.is_organizator ? 'organizer' : 'user',
             age: response.data.age,

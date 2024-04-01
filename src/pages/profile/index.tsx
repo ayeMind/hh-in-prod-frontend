@@ -9,10 +9,12 @@ import { FormNumberInput } from "@/components/form-input/form-number-input.tsx";
 import updateProfile from "@/api/update-profile.ts";
 import { cities } from "@/utils/cities.ts"
 import { useState } from "react";
+import * as yup from 'yup';
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
     return (
-        <AuthGuard role='user'>
+        <AuthGuard role='any'>
             <Header variant="default"/>
             <Container size={ "md" }>
                 <h1>Ваш профиль</h1>
@@ -25,6 +27,7 @@ export const Profile = () => {
 const Content = () => {
     const {user, setUser} = useUser()
     const [city, setCity] = useState<string | null>(user!.city ?? null)
+    const navigate = useNavigate()
 
     const formik = createFormik({
         initialValues: {
@@ -32,8 +35,12 @@ const Content = () => {
             age: user!.age ? user!.age!.toString() : '',
             workExp: user!.workExp ? user!.workExp!.toString() : '',
         },
+        validationSchema: yup.object({
+            name: yup.string().required('Введите имя').max(30, 'Имя слишком длинное'),
+            age: yup.number().min(0, 'Возраст не может быть отрицательным').integer('Введите целое число лет'),
+            workExp: yup.number().min(0, 'Опыт не может быть отрицательным').integer('Опыт целое число лет'),
+        }),
         onSubmit: async (values) => {
-            console.log(values)
             const response = await updateProfile({
                 name: values.name,
                 age: parseInt(values.age) ?? null,
@@ -49,6 +56,13 @@ const Content = () => {
         }
     })
 
+    const logout = () => {
+        navigate('/login')
+        localStorage.removeItem('auth_token')
+        localStorage.removeItem('user_id')
+        setUser(null)
+    }
+
     return <Formik { ...formik }>
         <Form>
             <Flex direction="column" gap={ "md" } mt='lg'>
@@ -63,13 +77,14 @@ const Content = () => {
                     placeholder="Email"
                     disabled
                 />
-                <FormNumberInput
-                    name='age'
-                    label="Возраст"
-                    placeholder="Возраст"
-                />
+                {
+                    user!.role == 'user' && <FormNumberInput
+                        name='age'
+                        label="Возраст"
+                        placeholder="Возраст"
+                    />
+                }
                 <Select
-                    name='city'
                     label="Город"
                     placeholder="Город"
                     searchable
@@ -78,16 +93,24 @@ const Content = () => {
                     value={ city }
                     onChange={ setCity }
                 />
-                <FormNumberInput
-                    name='workExp'
-                    label="Стаж работы (лет)"
-                    placeholder="Стаж работы"
-                />
-                <Button
-                    type='submit'
-                    w={ "fit-content" }>
-                    Сохранить
-                </Button>
+                {
+                    user!.role == 'user' && <FormNumberInput
+                        name='workExp'
+                        label="Стаж работы (лет)"
+                        placeholder="Стаж работы"
+                    />
+                }
+
+                <Flex gap='md'>
+                    <Button
+                        type='submit'
+                        w={ "fit-content" }>
+                        Сохранить
+                    </Button>
+                    <Button color='red' onClick={ logout }>
+                        Выйти из аккаунта
+                    </Button>
+                </Flex>
             </Flex>
         </Form>
     </Formik>

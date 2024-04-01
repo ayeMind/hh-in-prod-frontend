@@ -16,7 +16,7 @@ export const AuthGuard: FC<AuthGuardProps> = memo(props => {
     
     useEffect(() => {
         if (!loading) {
-            if (user != null && user.role != props.role) {
+            if (user != null && user.role != props.role && props.role != 'any') {
                 navigate('/')
             } else {
                 setRoleCorrect(true)
