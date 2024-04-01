@@ -1,7 +1,7 @@
+import { IUser } from "@/models/IUser.ts";
+
 export interface ITeam {
-    id: number;
-    hackathonId: number;
-    name: string;
-    teamLeaderUserId: number;
-    teamMembers: number[];
+    id: number
+    name: string
+    members: IUser[]
 }
