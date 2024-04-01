@@ -16,7 +16,6 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
     useEffect(() => {
         fetchProfileById(props.candidate_id).then(setCandidate)
     }, [])
-    // Сделать чтобы при нажатии на member container navigate на просмотр чужого резюме
     return <div className={ styles.card } onClick={ props.onResumeClick }>
         <div className={ styles["member-container"] }>
             <Avatar/>
