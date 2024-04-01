@@ -13,6 +13,8 @@ export default async function fetchMyHackathons(): Promise<IHackathon[]>  {
                 id: json.id,
                 name: json.name,
                 description: json.description,
+                min_participants: json.min_participants,
+                max_participants: json.max_participants,
                 imageCover: json.image_cover,
                 participants: json.participants.map((e: any) => ({
                     id: e.id,
