@@ -63,11 +63,11 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
 
             {/*  Current team */ }
             {myTeam && <CurrentTeamCard
-                hackathonId={ 123 }
-                id={ 1 }
-                name="Крутое название команды"
-                members={ 3 }
-                maxMembers={ 5 }
+                hackathonId={ hackathon!.id }
+                id={ myTeam.id }
+                name={ myTeam.name }
+                members={ myTeam.members.length }
+                maxMembers={ hackathon!.max_participants }
             />}
 
 
