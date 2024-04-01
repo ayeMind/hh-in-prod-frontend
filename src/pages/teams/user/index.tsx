@@ -12,6 +12,8 @@ import { ITeam } from "@/models/ITeam";
 import { useParams } from "react-router-dom"
 import fetchHackathon from "@/api/fetch-hackathon";
 import { IHackathon } from "@/models/IHackathon";
+import useUser from "@/hooks/use-user";
+import fetchMyTeam from "@/api/fetch-my-team";
 
 export type TeamUserPageProps = {}
 
@@ -36,6 +38,10 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             if (!data) return null;
             setHackathon(data);
             console.log(data);  
+        })
+
+        fetchMyTeam(parseInt(hackathon_id as string)).then(data => {
+            console.log("team", data);
         })
         
     }, [])
