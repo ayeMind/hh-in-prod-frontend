@@ -24,6 +24,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const [teams, setTeams] = useState<ITeam[]>([])
     const [filteredTeams, setFilteredTeams] = useState<ITeam[]>([])
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
+    const [myTeam, setMyTeam] = useState<ITeam | null>(null)
 
     useEffect(() => {
         fetchTeams(parseInt(hackathon_id as string)).then(data => {
@@ -40,7 +41,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
         })
 
         fetchMyTeam(parseInt(hackathon_id as string)).then(data => {
-            console.log("team", data);
+            setMyTeam(data)
         })
         
     }, [])
@@ -59,13 +60,14 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             </Flex>
 
             {/*  Current team */ }
-            <CurrentTeamCard
+            {myTeam && <CurrentTeamCard
                 hackathonId={ 123 }
                 id={ 1 }
                 name="Крутое название команды"
                 members={ 3 }
                 maxMembers={ 5 }
-            />
+            />}
+
 
             {/* Search input */ }
             <SearchInput
