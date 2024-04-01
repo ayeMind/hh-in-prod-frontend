@@ -4,23 +4,27 @@ import {FormInput} from "@/components/form-input/form-input";
 import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
 import {FormNumberInput} from "@/components/form-input/form-number-input";
 import {IconPlus} from "@tabler/icons-react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styles from "@/pages/change-hackathon/change-hackathon.module.css";
 import {useState} from "react";
 import {createFormik} from "@/utils/create-formik";
 import {IHackathon} from "@/models/IHackathon";
 import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
+import changeHackathon from "@/api/change-hackathon";
 
 export const ChangeHackathonForm = (
     { hackathon, updateHackathonFunc }: { hackathon: IHackathon, updateHackathonFunc: () => void }
 ) => {
+    const navigate = useNavigate()
+
     const [file, setFile] = useState<File | null>(null)
-    const [previewLink, setPreviewLink] = useState<string>('')
+    const [previewLink, setPreviewLink] = useState<string>(hackathon.imageCover)
     const [previewError, setPreviewError] = useState<string>('')
 
     const participants = hackathon.participants.map(item => item.email)
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
+
     const addParticipant = (email: string) => {
         if(participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
         addParticipantToHackathon(hackathon.id, email).then((res) => {
@@ -28,6 +32,7 @@ export const ChangeHackathonForm = (
         })
         updateHackathonFunc()
     }
+
     const formik = createFormik({
         initialValues: {
             name: hackathon.name,
@@ -35,8 +40,11 @@ export const ChangeHackathonForm = (
             min_participants: hackathon.min_participants,
             max_participants: hackathon.max_participants,
         },
-        onSubmit: async (values, formikHelpers) => {
-
+        onSubmit: async (values) => {
+            changeHackathon(hackathon.id, file, values).then(res => {
+                if(!res) setParticipantInputError("Непредвиденная ошибка")
+                else navigate('/')
+            })
         }
     })
 
@@ -86,7 +94,7 @@ export const ChangeHackathonForm = (
                         />
                         <Image
                             mt={"xs"}
-                            src={previewLink ? previewLink : "../img-placeholder.jpg"}
+                            src={previewLink && file ? previewLink : "../img-placeholder.jpg"}
                             mah={350}
                             w={"100%"}
                             radius="sm"
@@ -110,7 +118,7 @@ export const ChangeHackathonForm = (
                             <IconPlus stroke={2} size={20} />
                         </Button>
                     </Flex>
-                    <Button w={"fit-content"}>Сохранить</Button>
+                    <Button w={"fit-content"} type={"submit"}>Сохранить</Button>
                     <Link
                         to={`/hackathon/org/${hackathon.id}/teams`}
                         className={styles.link}
