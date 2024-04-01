@@ -9,7 +9,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { AuthGuard } from "@/components/auth-guard";
 import fetchTeams from "@/api/fetch-teams";
 import { ITeam } from "@/models/ITeam";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import fetchHackathon from "@/api/fetch-hackathon";
 import { IHackathon } from "@/models/IHackathon";
 import fetchMyTeam from "@/api/fetch-my-team";
@@ -19,7 +19,8 @@ export type TeamUserPageProps = {}
 export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const is960 = useMediaQuery('(max-width: 960px) and (min-width: 651px)')
     const is650 = useMediaQuery('(max-width: 650px)')
-
+    
+    const navigate = useNavigate()
     const { hackathon_id } = useParams()
     const [teams, setTeams] = useState<ITeam[]>([])
     const [filteredTeams, setFilteredTeams] = useState<ITeam[]>([])
@@ -53,6 +54,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             <Flex justify="space-between" mb='md' align='center'>
                 <h1>Команды</h1>
                 <Button
+                    onClick={() => navigate(`/hackathon/${hackathon_id}/teams/create`)}
                     variant="outline"
                     rightSection={ <IconPlus size={ 14 }/> }>
                     Создать команду
