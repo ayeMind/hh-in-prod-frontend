@@ -33,7 +33,7 @@ export const HackathonsUser = () => {
                                 <strong>{ user?.email ?? '' }</strong>
                             </Text>
                         </Flex>
-                        : <HackathonsList hackathons={ hackathons ?? [] }/>
+                        : <HackathonsList role='user' hackathons={ hackathons ?? [] }/>
                 }
             </Container>
         </AuthGuard>

@@ -29,7 +29,7 @@ export const HackathonsOrg = () => {
                         <IconPlus/>
                     </Button>
                 </Flex>
-                <HackathonsList hackathons={ hackathons }/>
+                <HackathonsList role='organizer' hackathons={ hackathons }/>
             </Container>
         </AuthGuard>
     );

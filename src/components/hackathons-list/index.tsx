@@ -3,8 +3,10 @@ import classes from "./hackathons-list.module.css"
 import { IHackathon } from "@/models/IHackathon.ts";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserRole } from "@/models/IUser.ts";
 
 type HackathonsListProps = {
+    role: UserRole;
     hackathons: IHackathon[]
 }
 
@@ -13,7 +15,13 @@ export const HackathonsList: FC<HackathonsListProps> = (props) => {
 
     const items = props.hackathons.map(hackathon => (
         <Card
-            onClick={ () => navigate(`/change-hackathon/${ hackathon.id }`) }
+            onClick={ () => {
+                if (props.role == 'organizer') {
+                    navigate(`/change-hackathon/${ hackathon.id }`);
+                } else {
+                    navigate(`/hackathon/${ hackathon.id }`);
+                }
+            } }
             key={ hackathon.id }
             className={ classes["card"] }
             role="button"
