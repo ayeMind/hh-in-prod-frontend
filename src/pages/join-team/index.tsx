@@ -34,7 +34,7 @@ export const JoinTeam = () => {
 
         const success = await joinTeamById(team.id)
         if (success) {
-            navigate(`/team/${ team.id }/create-resume`)
+            navigate("/")
         } else {
             console.error('error')
         }
