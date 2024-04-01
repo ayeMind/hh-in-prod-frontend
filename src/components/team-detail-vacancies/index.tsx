@@ -27,7 +27,8 @@ export const TeamDetailVacancies = ({listVacancies, myTeam}: {
                 return <VacancyCard
                     onClick={ onClick}
                     key={ vacancy.id }
-                    canSendResume={ canSend }
+                    id={ vacancy.id }
+                    canSendResume={canSend}
                     keywords={ vacancy.keywords }
                     name={ vacancy.name }
                 />
