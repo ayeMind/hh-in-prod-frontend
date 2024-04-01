@@ -9,8 +9,8 @@ import sendTeamInviteEmail from "@/api/send-team-invite-email";
 export type TeamInvitePopupProps = {
     team_id: number
     opened: boolean
+    close: () => void
     onClose: () => void
-    onSubmit: (email: string) => void
 }
 
 export const TeamInvitePopup: FC<TeamInvitePopupProps> = memo(props => {
@@ -24,9 +24,8 @@ export const TeamInvitePopup: FC<TeamInvitePopupProps> = memo(props => {
             email: yup.string().required('Введите email').email('Неверный email')
         }),
         onSubmit: (values) => {
-        
             sendTeamInviteEmail(props.team_id, { "email": values.email })
-            
+            props.close()
         },
     })
     

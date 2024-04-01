@@ -25,11 +25,9 @@ export const TeamDetailParticipants = ({ team_id, members, creator }: { team_id:
             <TeamInvitePopup
                 team_id={team_id}
                 opened={ opened }
+                close={ close }
                 onClose={ close }
-                onSubmit={ email => {
-                    close()
-                    console.log(email)
-                }}
+
             />
         </>
 
