@@ -1,3 +1,4 @@
+import { AuthGuard } from "@/components/auth-guard";
 import { Header } from "@/components/header";
 import { ActionIcon, Button, Container, Flex, TextInput, Textarea } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
@@ -31,7 +32,7 @@ export const MyResume = () => {
   ))
 
   return (
-    <>
+    <AuthGuard role="user">
        <Header variant="user" />
        <Container mb="xl">
           <h1>Ваше резюме</h1>
@@ -80,7 +81,7 @@ export const MyResume = () => {
 
             <Button mt="md">Сохранить</Button>
        </Container>
-    </>
+    </AuthGuard>
   );
 };
 
