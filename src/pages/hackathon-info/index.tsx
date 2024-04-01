@@ -3,13 +3,22 @@ import { Header } from "@/components/header"
 import { IconSearch } from "@tabler/icons-react";
 import { MembersList } from "@/components/members-list";
 import { AuthGuard } from "@/components/auth-guard";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classes from "./hackathon-info.module.css";  
-// import fetchHackathonById from "@/api/fetch-hackathon-by-id";
+import fetchHackathonById from "@/api/fetch-hackathon-by-id";
+import fetchProfileById from "@/api/fetch-profile-by-id";
 
 export const HackathonInfo = () => {
 
-  // const { hackathon_id } = useParams();
+  const { hackathon_id } = useParams();
+  
+  fetchHackathonById(parseInt(hackathon_id as string)).then(data => {
+    console.log(data);
+  });
+
+  fetchProfileById(22).then(data => {
+    console.log(data);
+  })
   
   return (
     <AuthGuard role='user'>

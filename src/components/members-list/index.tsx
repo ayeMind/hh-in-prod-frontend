@@ -15,8 +15,8 @@ const members = [
 
 export const MembersList = () => {
 
-    const items = members.map(member => (
-        <MemberCard { ...member } />
+    const items = members.map((member, index) => (
+        <MemberCard key={index} { ...member } />
     ))
 
     return (
