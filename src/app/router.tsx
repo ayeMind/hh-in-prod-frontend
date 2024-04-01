@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/join-hackathon",
+    path: "/join-hackaton",
     element: <JoinHackathon />,
   },
   {
