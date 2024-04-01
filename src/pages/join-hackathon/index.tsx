@@ -6,7 +6,7 @@ import parseJwt from "@/utils/parse-jwt.ts";
 import { AuthGuard } from "@/components/auth-guard";
 import joinHackathon from "@/api/join-hackathon.ts";
 import { IHackathon } from "@/models/IHackathon.ts";
-import fetchHackathonById from "@/api/fetch-hackathon-by-id.ts";
+import fetchHackathon from "@/api/fetch-hackathon.ts";
 
 export const JoinHackathon = () => {
     const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export const JoinHackathon = () => {
         if (!id) {
             navigate('/')
         } else {
-            fetchHackathonById(id)
+            fetchHackathon(id)
                 .then(data => {
                     setHackathon(data);
                     setLoading(false);

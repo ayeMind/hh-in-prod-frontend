@@ -6,7 +6,7 @@ import { AuthGuard } from "@/components/auth-guard";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IUser } from "@/models/IUser";
-import fetchHackathonById from "@/api/fetch-hackathon-by-id";
+import fetchHackathon from "@/api/fetch-hackathon";
 import classes from "./hackathon-info.module.css";  
 
 export const HackathonInfo = () => {
@@ -18,12 +18,12 @@ export const HackathonInfo = () => {
   const [maxMembersAmount, setMaxMembersAmount] = useState<number>(0);
 
   useEffect(() => {    
-    fetchHackathonById(parseInt(hackathon_id as string)).then(data => {
+    fetchHackathon(parseInt(hackathon_id as string)).then(data => {
       if (!data) return null;
       setPreview(`${import.meta.env.VITE_BACKEND_URL}${data.imageCover}`);
       setMembers(data.participants)
-      setMinMembersAmount(data.minParticipants)
-      setMaxMembersAmount(data.maxParticipants)
+      setMinMembersAmount(data.min_participants)
+      setMaxMembersAmount(data.max_participants)
     });
   }, [])
 

@@ -9,6 +9,4 @@ export interface IHackathon {
     imageCover: string;
     participants: IUser[];
     teamsIds: number[];
-    minParticipants: number;
-    maxParticipants: number;
 }
