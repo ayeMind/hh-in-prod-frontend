@@ -103,7 +103,7 @@ export const router = createBrowserRouter([
     element: <ChangeTeam />
   },
   {
-    path:  "hackathon/:hackathon_id/team/:team_id/vacancy/:vacancy_id/candidates",
+    path:  "hackathon/:hackathon_id/teams/:team_id/vacancy/:vacancy_id/candidates",
     element: <SuitableCandidates />
   },
   {

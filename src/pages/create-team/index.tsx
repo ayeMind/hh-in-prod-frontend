@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTeam } from "@/api/create-team";
 import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
+// import joinTeamById from "@/api/join-team-by-id.ts";
 
 export const CreateTeam = () => {
     const { hackathon_id } = useParams() 
@@ -83,6 +84,9 @@ const Content: FC<ContentProps> = (props) => {
         )
 
         if (success) {
+            // TODO: join team 
+            // const successJoin = await joinTeamById(props)
+            
             navigate(`/hackathon/${ hackathon_id }/teams`)
         }
         setLoading(false)
