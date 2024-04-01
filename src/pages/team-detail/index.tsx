@@ -9,12 +9,15 @@ import useUser from "@/hooks/use-user";
 import {useNavigate, useParams} from "react-router-dom";
 import {ITeam} from "@/models/ITeam";
 import getTeam from "@/api/get-team";
+import {IVacancyResponse} from "@/models/IVacancyResponse";
+import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 
 export const TeamDetailPage = memo(() => {
     const { user } = useUser()
     const params = useParams()
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
     const [hackathonId, setHackathonId] = useState<number>(0)
+    const [vacancyResponses, setVacanciesResponses] = useState<IVacancyResponse[]>([])
     const navigate = useNavigate()
     useEffect(() => {
         const team_id = parseInt(params.team_id ?? '')
@@ -22,6 +25,7 @@ export const TeamDetailPage = memo(() => {
         if (team_id && hackathon_id) {
             setHackathonId(hackathon_id)
             getTeam(team_id).then(setTeamDetail)
+            getTeamVacanciesResponses(team_id).then(setVacanciesResponses)
         } else {
             navigate('/404')
         }
@@ -61,7 +65,7 @@ export const TeamDetailPage = memo(() => {
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses />
+                <TeamDetailVacanciesResponses vacancy_responses={vacancyResponses} />
 
             </Container>
         </>
