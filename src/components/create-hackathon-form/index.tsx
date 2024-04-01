@@ -41,6 +41,9 @@ export const CreateHackathonForm = () => {
                 setPreviewError('Ошибка загрузки картинки')
                 return;
             }
+            if(file.size > 2 * 1024 * 1024) {
+                setPreviewError('Картинка не может весить больше 2МБ')
+            }
             if(!(values.max_participants <= 10 && values.max_participants >= 1)) {
                 formikHelpers.setFieldError('max_participants', 'Введите кол-во участников от 1 до 10')
                 return

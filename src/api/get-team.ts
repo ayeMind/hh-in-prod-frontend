@@ -19,7 +19,9 @@ export default async function getTeam(id: number): Promise<ITeam | null> {
                 age: member.age,
                 city: member.city,
                 workExp: member.work_experience,
-            }))
+            })),
+            creator: response.data.creator,
+            hackathonId: response.data.hackathon_id,
         }
     }
     

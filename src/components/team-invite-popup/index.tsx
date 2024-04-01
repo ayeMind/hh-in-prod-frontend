@@ -20,7 +20,6 @@ export const TeamInvitePopup: FC<TeamInvitePopupProps> = memo(props => {
             email: yup.string().required('Введите email').email('Неверный email')
         }),
         onSubmit: (values) => {
-            props.onSubmit(values.email)
         },
     })
     
