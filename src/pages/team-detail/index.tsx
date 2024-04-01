@@ -68,7 +68,7 @@ export const TeamDetailPage = memo(() => {
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses vacancy_responses={vacancyResponses} />
+                <TeamDetailVacanciesResponses vacancy_responses={vacancyResponses} hackathon_id={hackathonId} />
 
             </Container>
         </>
