@@ -1,10 +1,16 @@
 import { Container, Text, Image, TextInput, Button } from "@mantine/core";
 import { Header } from "@/components/header"
 import { IconSearch } from "@tabler/icons-react";
-import classes from "./hackathon-info.module.css"
 import { MembersList } from "@/components/members-list";
 import { AuthGuard } from "@/components/auth-guard";
+// import { useParams } from "react-router-dom";
+import classes from "./hackathon-info.module.css";  
+// import fetchHackathonById from "@/api/fetch-hackathon-by-id";
+
 export const HackathonInfo = () => {
+
+  // const { hackathon_id } = useParams();
+  
   return (
     <AuthGuard role='user'>
        <Header variant='user' />

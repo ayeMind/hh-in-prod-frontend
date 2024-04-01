@@ -3,6 +3,7 @@ import { Avatar, Container, Flex, SimpleGrid, Space, Text } from "@mantine/core"
 import classes from "./teams-org.module.css";
 import { SearchInput } from "@/components/search-input";
 import { IconPlus } from "@tabler/icons-react";
+import { AuthGuard } from "@/components/auth-guard";
 
 const teams = [{"id": 1, "name": "Крутая команда", "members": [1, 2, 3, 4, 5, 6, 7]}, {"id": 2, "name": "Крутая команда", "members": [2, 5, 8, 1, 4, 6]}, {"id": 3, "name": "Крутая команда", "members": [5, 6, 7]}, {"id": 4, "name": "Крутая команда", "members": [10, 12, 13]}]
 
@@ -34,7 +35,7 @@ export const TeamsOrg = () => {
     )
 
   return (
-    <>
+    <AuthGuard role="organizer">
        <Header variant="organizer" />
        <Container>
             <h1>Команды</h1>
@@ -46,6 +47,6 @@ export const TeamsOrg = () => {
             </SimpleGrid>
             
        </Container>
-    </>
+    </AuthGuard>
   );
 };

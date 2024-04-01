@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
     element: <SignUpOrg />
   },
   {
-    path: "/hackathon/:id",
+    path: "/hackathon/:hackathon_id",
     element: <HackathonInfo />
   },
   {
@@ -58,23 +58,23 @@ export const router = createBrowserRouter([
     element: <JoinHackathon />,
   },
   {
-    path: "/hackathon/:id/create-resume",
+    path: "/hackathon/:hackathon_id/create-resume",
     element: <CreateResume />,
   },
   {
-    path: "/hackathon/:id/create-resume/github",
+    path: "/hackathon/:hackathon_id/create-resume/github",
     element: <ImportGithub />,
   },
   {
-    path: "/hackathon/:id/create-resume/hh",
+    path: "/hackathon/:hackathon_id/create-resume/hh",
     element: <ImportHh />,
   },
   {
-    path: "/hackathon/:id/create-resume/pdf",
+    path: "/hackathon/:hackathon_id/create-resume/pdf",
     element: <ImportPdf />,
   },
   {
-    path: "/hackathon/:id/teams",
+    path: "/hackathon/:hackathon_id/teams",
     element: <TeamUserPage/>,
   },
   {
@@ -94,7 +94,7 @@ export const router = createBrowserRouter([
     element: <ChangeHackathon />
   },
   {
-    path: "/hackathon/:id/my-resume",
+    path: "/hackathon/:hackathon_id/my-resume",
     element: <MyResume />
   },
   {
@@ -106,7 +106,7 @@ export const router = createBrowserRouter([
     element: <SuitableCandidates />
   },
   {
-    path: "hackathon/:id/org/teams",
+    path: "hackathon/:hackathon_id/org/teams",
     element: <TeamsOrg />
   },
   {
