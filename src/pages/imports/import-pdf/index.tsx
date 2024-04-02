@@ -37,7 +37,7 @@ export const ImportPdf = () => {
             })
 
             if (success) {
-                navigate(`/hackathon/${ hackathonId }/resume`)
+                navigate(`/`)
             }
         } else {
             setError('Не удалось распарсить. Попробуйте снова')
