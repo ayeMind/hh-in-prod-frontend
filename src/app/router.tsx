@@ -23,6 +23,7 @@ import { SuitableCandidates } from "@/pages/suitable-candidates";
 import { TeamsOrg } from "@/pages/teams/org";
 import { TeamDetailPage } from "@/pages/team-detail";
 import { CreateTeam } from "@/pages/create-team";
+import { JoinTeam } from "@/pages/join-team";
 
 export const router = createBrowserRouter([
   {
@@ -117,5 +118,9 @@ export const router = createBrowserRouter([
   {
     path: 'hackathon/:hackathon_id/teams/create',
     element: <CreateTeam/>,
-  }
+  },
+  {
+    path: '/join-team',
+    element: <JoinTeam />
+  },
 ]);

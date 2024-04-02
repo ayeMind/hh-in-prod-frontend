@@ -1,6 +1,12 @@
-.member-container {
+.border-container {
     border: 1px solid var(--stroke-color);
     padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member-container {
     display: flex;
     align-items: center;
     gap: 12px;
