@@ -45,7 +45,6 @@ export const JoinHackathon = () => {
         setLoading(true)
 
         const response = await joinHackathon(hackathon.id, searchParams.get("hackathon_id") as string)
-        console.log(response)
         if (response == 'success') {
             navigate(`/hackathon/${ hackathon.id }/create-resume`)
         } else if (response == 'already-join') {
