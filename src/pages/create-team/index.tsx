@@ -70,12 +70,13 @@ const Content: FC<ContentProps> = (props) => {
     const onSubmit = async () => {
         if (loading) return
         setLoading(true)
+        const newVacancies = vacancies.filter(vacancy => vacancy.name)
 
         const teamId = await createTeam(
             props.hackathonId,
             {
                 name: title,
-                vacancies: vacancies.map(item => ({
+                vacancies: newVacancies.map(item => ({
                     id: item.id < 0 ? 0 : item.id,
                     name: item.name,
                     keywords: item.keywords.split(',').map(x => x.trim()),
