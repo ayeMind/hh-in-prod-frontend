@@ -63,7 +63,7 @@ export const TeamDetailPage = memo(() => {
                     {
                         user && user.id == teamDetail.creator
                             ? <Button
-                                onClick={() => navigate(`/hackathon/${hackathonId}/teams/${teamDetail!.id}/change`)}
+                                onClick={() => navigate(`/hackathon/${params.hackathon_id}/teams/${teamDetail!.id}/change`)}
                                 variant='transparent'
                                 px={ 0 }>
                                 Редактировать
@@ -75,7 +75,7 @@ export const TeamDetailPage = memo(() => {
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
                 <TeamDetailParticipants team_id={ teamDetail.id } creator={ teamDetail.creator }
-                                        members={ teamDetail.members }/>
+                                        members={ teamDetail.members } hackathon_id={hackathonId} />
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
