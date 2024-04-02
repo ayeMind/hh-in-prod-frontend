@@ -51,7 +51,7 @@ export const ImportHh = () => {
             <Formik { ...formik }>
                 <Form>
                     <Flex component={ Center } h={ "100vh" } direction={ "column" } gap={ "xs" }>
-                        <Text size={ "xl" }>Импорт резюме из hh.ru</Text>
+                        <Text size={ "xl" } fw={500}>Импорт резюме из hh.ru</Text>
                         <Flex direction={ "column" } w={ "300px" } gap={ "xs" }>
                             <FormInput
                                 name='link'
