@@ -5,7 +5,9 @@ import {IUser} from "@/models/IUser";
 import fetchProfileById from "@/api/fetch-profile-by-id";
 
 export type VacancyReplyCardProps = {
+    variant: "teamlead" | "user",
     candidate_id: number,
+    vacancy_id: number,
     onAccept?: () => void
     onDecline?: () => void
     onResumeClick?: () => void
@@ -13,9 +15,9 @@ export type VacancyReplyCardProps = {
 
 export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
     const [candidate, setCandidate] = useState<IUser | null>()
+
     useEffect(() => {
         fetchProfileById(props.candidate_id).then(setCandidate)
-        console.log("ABOBA", props.candidate_id)
     }, [])
     return <div className={ styles.card }>
         <div className={ styles["member-container"] } onClick={ props.onResumeClick }>
@@ -26,9 +28,10 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
             </div>
         </div>
 
+        { props.variant == "teamlead" &&
         <Flex gap={ 24 } style={{ cursor: 'pointer' }}>
             <UnstyledButton c='green' onClick={ props.onAccept }>Принять</UnstyledButton>
             <UnstyledButton c='red' onClick={ props.onDecline }>Отклонить</UnstyledButton>
-        </Flex>
+        </Flex> }
     </div>
 })
