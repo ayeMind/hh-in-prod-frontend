@@ -22,7 +22,7 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
     useEffect(() => {
         let state = 'cantSend' as 'canSend' | 'cantSend' | 'sended'
         props.vacancy_responses.forEach(response => {
-            if((user && response.candidate_id == user.id))
+            if((user && response.candidate_id == user.id && response.vacancy_id == props.id))
                 state = 'sended'
             if(user && user.role && user.role == "user" && !props.myTeam && (state != 'sended'))
                 state = 'canSend'
