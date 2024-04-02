@@ -54,16 +54,11 @@ export const ChangeHackathonForm = (
         initialValues: {
             name: hackathon.name,
             description: hackathon.description,
-            min_participants: hackathon.min_participants,
             max_participants: hackathon.max_participants,
         },
         validationSchema: yup.object({
             name: yup.string().required('Поле обязательно'),
             description: yup.string().required('Описание обязательно'),
-            min_participants: yup.number()
-                .integer('Целое оно должно быть...')
-                .min(1, 'Не менее одного участника в одной команде')
-                .max(yup.ref('max_participants'), 'Больше максимального кол-во участников'),
             max_participants: yup.number()
                 .integer('Целое оно должно быть...')
                 .min(yup.ref('max_participants'), 'Меньше минимального кол-во участников')
@@ -97,12 +92,6 @@ export const ChangeHackathonForm = (
                         label="Описание хакатона"
                         placeholder="Введите описание хакатона"
                         autosize
-                    />
-                    <FormNumberInput
-                        name="min_participants"
-                        label="Мин количество участников в команде"
-                        disabled
-                        placeholder="Введите мин количество участников в команде"
                     />
                     <FormNumberInput
                         name="max_participants"

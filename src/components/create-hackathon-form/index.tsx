@@ -28,7 +28,8 @@ export const CreateHackathonForm = () => {
     const [file, setFile] = useState<File | null>(null)
     const [previewLink, setPreviewLink] = useState<string>('/img-placeholder.jpg')
     const [previewError, setPreviewError] = useState<string>('')
-
+    const [loading, setLoading] = useState(false)
+    
     const [participants, setParticipants] = useState<string[]>([])
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
@@ -54,22 +55,17 @@ export const CreateHackathonForm = () => {
         initialValues: {
             name: '',
             description: '',
-            min_participants: 1,
             max_participants: 5,
         },
         validationSchema: yup.object({
             name: yup.string().required('Поле обязательно'),
             description: yup.string().required('Описание обязательно'),
-            min_participants: yup.number()
-                .integer('Целое оно должно быть...')
-                .min(1, 'Не менее одного участника в одной команде')
-                .max(yup.ref('max_participants'), 'Больше максимального кол-во участников'),
             max_participants: yup.number()
                 .integer('Целое оно должно быть...')
-                .min(yup.ref('max_participants'), 'Меньше минимального кол-во участников')
+                .min(1, 'Не менее одного участника в одной команде')
                 .max(7, 'Не более семи участника в одной команде'),
         }),
-        onSubmit: async (values, formikHelpers) => {
+        onSubmit: async (values) => {
             if (!previewLink || previewLink == '/img-placeholder.jpg' || !file) {
                 setPreviewError('Ошибка загрузки картинки')
                 return;
@@ -77,27 +73,17 @@ export const CreateHackathonForm = () => {
             if (file.size > 2 * 1024 * 1024) {
                 setPreviewError('Картинка не может весить больше 2МБ')
             }
-            if (!(values.max_participants <= 10 && values.max_participants >= 1)) {
-                formikHelpers.setFieldError('max_participants', 'Введите кол-во участников от 1 до 10')
-                return
-            }
-            if (values.min_participants < 1 || values.min_participants >= 10) {
-                formikHelpers.setFieldError('min_participants', 'Введите кол-во участников от 1 до 10')
-                return
-            }
-            if (values.min_participants > values.max_participants) {
-                formikHelpers.setFieldError('min_participants', 'Минимальное количество участников не может превышать максимальное')
-                return
-            }
             const data = {
                 ...values,
                 participants: participants,
             } as CreateHackathonPayload
 
-            createHackathon(file, data).then(res => {
+            setLoading(true)
+            await createHackathon(file, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")
                 else navigate('/')
             })
+            setLoading(false)
         }
     })
 
@@ -115,11 +101,6 @@ export const CreateHackathonForm = () => {
                         label="Описание хакатона"
                         autosize
                         placeholder="Введите описание хакатона"
-                    />
-                    <FormNumberInput
-                        name="min_participants"
-                        label="Мин количество участников в команде"
-                        placeholder="Введите мин количество участников в команде"
                     />
                     <FormNumberInput
                         name="max_participants"
@@ -195,7 +176,7 @@ export const CreateHackathonForm = () => {
                         </AccordionItem>
                     </Accordion>
 
-                    <Button w={ "fit-content" } type={ "submit" }>Создать</Button>
+                    <Button loading={loading} w={ "fit-content" } type={ "submit" }>Создать</Button>
                 </Flex>
             </Form>
         </Formik>

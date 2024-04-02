@@ -3,7 +3,6 @@ import apiClient from "@/api-client.ts";
 interface ChangeHackathonPayload {
     name: string,
     description: string,
-    min_participants: number,
     max_participants: number,
 }
 
@@ -16,7 +15,10 @@ export default async function changeHackathon(hackathon_id: number, file: File |
     const response = await apiClient({
         method: "patch",
         url: `/hackathons/${hackathon_id}`,
-        data: data
+        data: {
+            ...data,
+            min_participants: 1,
+        }
     })
 
     return response.status == 200

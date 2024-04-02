@@ -8,10 +8,13 @@ export interface CreateHackathonPayload {
     participants: string[],
 }
 
-export default async function createHackathon(file: File, data: CreateHackathonPayload): Promise<boolean>  {
+export default async function createHackathon(file: File, data: CreateHackathonPayload): Promise<boolean> {
     const form = new FormData()
     form.append('image_cover', file)
-    form.append('body', JSON.stringify(data))
+    form.append('body', JSON.stringify({
+        ...data,
+        min_participants: 1,
+    }))
 
     const response = await apiClient({
         method: "post",
