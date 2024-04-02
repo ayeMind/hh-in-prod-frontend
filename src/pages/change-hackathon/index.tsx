@@ -1,5 +1,5 @@
 import {Header} from "@/components/header";
-import {Container} from "@mantine/core";
+import {Container, Space} from "@mantine/core";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {ChangeHackathonForm} from "@/components/change-hackathon-form";
@@ -43,6 +43,7 @@ export const ChangeHackathon = () => {
             <Header variant="organizer" />
             <Container size="md" pb={"100px"}>
                 <h1>Изменение хакатона</h1>
+                <Space h="md" />
                 <ChangeHackathonForm hackathon={hackathon} updateHackathonFunc={updateHackathonFunc} />
             </Container>
         </>
