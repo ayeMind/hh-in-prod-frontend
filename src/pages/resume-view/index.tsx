@@ -1,13 +1,16 @@
-import { Container, Text, Badge, Box } from "@mantine/core"
+import { Container, Text, Badge, Box, Flex, Avatar } from "@mantine/core"
 import { Header } from "@/components/header";
 import { AuthGuard } from "@/components/auth-guard";
 import { useEffect, useState } from "react";
 import { fetchResume } from "@/api/fetch-resume";
 import { IResume } from "@/models/IResume";
 import { useParams } from "react-router-dom";
+import { IUser } from "@/models/IUser";
+import fetchProfileById from "@/api/fetch-profile-by-id";
 
 export const ResumeView = () => {
     const [resume, setResume] = useState<IResume | null>(null)
+    const [profile, setProfile] = useState<IUser | null>(null)
     const [contacts, setContacts] = useState<string[]>([])
 
     const { hackathon_id, user_id } = useParams()
@@ -17,8 +20,11 @@ export const ResumeView = () => {
             setResume(data)
             const contacts = [data?.telegram, data?.githubLink, data?.hhLink].filter(contact => !!contact)
             setContacts(contacts as string[])
-            return;
         })  
+
+        fetchProfileById(parseInt(user_id as string)).then(data => {
+            setProfile(data)
+        })
     }, [])
 
     const contactsItems = contacts.map(contact => (
@@ -41,6 +47,10 @@ export const ResumeView = () => {
     <AuthGuard role='any'>
        <Header variant="user" />
        <Container>
+       <Flex align="center" gap="md">
+            <Avatar w={100} h={100} />
+            <h2>{profile?.name}</h2>
+        </Flex>
  
         {resume?.bio && <Box mt="xl">
             <h3>Обо мне</h3>
@@ -69,7 +79,7 @@ export const ResumeView = () => {
         </Box>}
 
         {!resume?.softSkills && !resume?.bio && contacts.length === 0 && !resume?.techStack && (
-            <Text>У пользователя пустое резюме</Text>
+            <Text mt="xl">У пользователя пустое резюме</Text>
         )}
 
        </Container>
