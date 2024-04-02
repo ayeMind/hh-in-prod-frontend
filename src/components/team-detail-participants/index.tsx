@@ -12,7 +12,7 @@ export const TeamDetailParticipants = ({ team_id, members, creator }: { team_id:
         <>
             <SimpleGrid cols={ {base: 1, xs: 2, sm: 3} } spacing="md" mt={ 12 } mb={ 36 }>
                 { members.map((member: IUser) => {
-                    return <MemberCard key={member.id} name={member.name} email={member.email} />
+                    return <MemberCard creator={creator} key={member.id} name={member.name} email={member.email} />
                 }) }
                 {
                     user && user.id == creator 
