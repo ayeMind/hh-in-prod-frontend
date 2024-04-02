@@ -3,11 +3,13 @@ import classes from "./member-card.module.css";
 import { Avatar, Text, ActionIcon } from "@mantine/core";
 import useUser from "@/hooks/use-user";
 import { IconTrash } from "@tabler/icons-react";
+import deleteParticipant from "@/api/delete-participant";
 
 export type MemberCardProps = {
     name: string;
     email: string;
     creator?: number;
+    team_id?: number;
     onClick?: () => void;
 }
 
@@ -23,8 +25,11 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                 <Text>{ props.email }</Text>
             </div>
         </div>
-        {user && props.creator && props.creator === user.id && (
-            <ActionIcon onClick={() => {}} variant="transparent">
+        {user && props.creator && props.team_id && props.creator === user.id && (
+            <ActionIcon onClick={() => {
+                deleteParticipant(props.team_id as number, props.email)
+                window.location.reload()    
+            }} variant="transparent">
                 <IconTrash color="pink" />
             </ActionIcon>)}
         </div>
