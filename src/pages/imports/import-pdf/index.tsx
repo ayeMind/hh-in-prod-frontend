@@ -37,7 +37,7 @@ export const ImportPdf = () => {
             })
 
             if (success) {
-                navigate(`/`)
+                navigate(`/hackathon/${hackathonId}/my-resume`)
             }
         } else {
             setError('Не удалось распарсить. Попробуйте снова')

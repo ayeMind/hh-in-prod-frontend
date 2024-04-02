@@ -37,7 +37,7 @@ export const ImportGithub = () => {
                 })
                 
                 if (success) {
-                    navigate(`/`)
+                    navigate(`/hackathon/${hackathonId}/my-resume`)
                 }
             } else {
                 formikHelpers.setFieldError('link', 'Не удалось импортировать ваш гитхаб')
