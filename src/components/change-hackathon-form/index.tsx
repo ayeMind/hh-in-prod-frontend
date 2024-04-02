@@ -1,16 +1,17 @@
 import {Form, Formik} from "formik";
-import {Autocomplete, Button, Container, FileInput, Flex, Image} from "@mantine/core";
+import {Autocomplete, Button, Container, FileInput, Flex, Image, Text} from "@mantine/core";
 import {FormInput} from "@/components/form-input/form-input";
 import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
 import {FormNumberInput} from "@/components/form-input/form-number-input";
 import {IconPlus} from "@tabler/icons-react";
 import {Link, useNavigate} from "react-router-dom";
 import styles from "@/pages/change-hackathon/change-hackathon.module.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {createFormik} from "@/utils/create-formik";
 import {IHackathon} from "@/models/IHackathon";
 import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
+import { getPercentWithTeam } from "@/api/get-percent-with-team";
 
 export const ChangeHackathonForm = (
     { hackathon, updateHackathonFunc }: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -28,6 +29,7 @@ export const ChangeHackathonForm = (
     const participants = hackathon.participants.map(item => item.email)
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
+    const [percentWithTeam, setPercentWithTeam] = useState(0)
 
     const addParticipant = (email: string) => {
         if(participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
@@ -52,6 +54,12 @@ export const ChangeHackathonForm = (
                 else navigate('/')
             })
         }
+    })
+
+    useEffect(() => {
+        getPercentWithTeam(hackathon.id).then(data => {
+            setPercentWithTeam(data)
+        })
     })
 
     return (
@@ -124,6 +132,7 @@ export const ChangeHackathonForm = (
                             <IconPlus stroke={2} size={20} />
                         </Button>
                     </Flex>
+                    <Text size="sm">Уже {percentWithTeam}% участиков находится в команде</Text>
                     <Button w={"fit-content"} type={"submit"}>Сохранить</Button>
                     <Link
                         to={`/hackathon/${hackathon.id}/org/teams`}
