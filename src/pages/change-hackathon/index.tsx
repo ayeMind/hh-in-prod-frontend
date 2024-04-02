@@ -11,6 +11,7 @@ export const ChangeHackathon = () => {
     const params = useParams();
     const [hackathon, setHackathon] = useState<IHackathon | null>(null)
     const navigate = useNavigate()
+    
     const updateHackathonFunc = () => {
         try {
             if(parseInt(params.hackathon_id ?? '')) {
@@ -28,6 +29,7 @@ export const ChangeHackathon = () => {
             navigate('/404')
         }
     }
+    
     useEffect(() => {
         updateHackathonFunc()
     }, [])
