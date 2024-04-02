@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .member-container {
@@ -11,7 +12,6 @@
     align-items: center;
     gap: 12px;
     border-radius: 8px;
-    cursor: pointer;
 }
 
 .member-info {
