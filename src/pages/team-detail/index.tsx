@@ -87,6 +87,11 @@ export const TeamDetailPage = memo(() => {
                     vacancy_responses={ vacancyResponses }
                     hackathon_id={ hackathonId }
                     callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
+                    callbackOnAccept={(res_id: number) => {
+                        setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
+                        if(myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
+                        window.location.reload()
+                    }}
                 />
 
             </Container>
