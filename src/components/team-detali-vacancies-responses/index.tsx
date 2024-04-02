@@ -25,9 +25,7 @@ export const TeamDetailVacanciesResponses = (
                     vacancy_id={ response.vacancy_id }
                     candidate_id={ response.candidate_id }
                     onResumeClick={ () => {
-                        if (variant === 'teamlead') {
-                            navigate(`/hackathon/${ hackathon_id }/resume/${ response.candidate_id }`)
-                        }
+                        navigate(`/hackathon/${ hackathon_id }/resume/${ response.candidate_id }`)
                     } }
                     onDecline={ () => {
                         declineApplication(response.id)

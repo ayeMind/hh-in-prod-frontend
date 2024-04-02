@@ -41,7 +41,7 @@ export const ImportHh = () => {
                     navigate(`/hackathon/${hackathonId}/my-resume`)
                 }
             } else {
-                formikHelpers.setFieldError('link', 'Не удалось импортировать ваш гитхаб')
+                formikHelpers.setFieldError('link', 'Не удалось импортировать ваш hh')
             }
         }
     })

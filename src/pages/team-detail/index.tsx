@@ -66,7 +66,7 @@ export const TeamDetailPage = memo(() => {
                     {
                         user && user.id == teamDetail.creator
                             ? <Button
-                                onClick={() => navigate(`/hackathon/${params.hackathon_id}/teams/${teamDetail!.id}/change`)}
+                                onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
                                 variant='transparent'
                                 px={ 0 }>
                                 Редактировать
@@ -77,27 +77,34 @@ export const TeamDetailPage = memo(() => {
 
                 {/*  Участники + Popup   */ }
                 <h3>Участники команды</h3>
-                <TeamDetailParticipants team_id={ teamDetail.id } creator={ teamDetail.creator }
-                                        members={ teamDetail.members } hackathon_id={hackathonId} />
+                <TeamDetailParticipants
+                    team_id={ teamDetail.id }
+                    creator={ teamDetail.creator }
+                    members={ teamDetail.members }
+                    hackathon_id={ hackathonId }/>
 
                 {/* Вакансии */ }
                 <h3>Вакансии</h3>
-                <TeamDetailVacancies vacancy_responses={ vacancyResponses } listVacancies={ listVacancies } myTeam={ myTeam }/>
+                <TeamDetailVacancies
+                    currentTeam={ teamDetail }
+                    vacancy_responses={ vacancyResponses }
+                    listVacancies={ listVacancies }
+                    myTeam={ myTeam }/>
 
                 {/* Отклики */ }
                 {
                     myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
                         <h3>Отклики на вакансии </h3>
                         <TeamDetailVacanciesResponses
-                            variant={teamVacanciesResponsesVariant}
+                            variant={ teamVacanciesResponsesVariant }
                             vacancy_responses={ vacancyResponses }
                             hackathon_id={ hackathonId }
-                            callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
-                            callbackOnAccept={(res_id: number) => {
+                            callbackOnDelete={ (res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id)) }
+                            callbackOnAccept={ (res_id: number) => {
                                 setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
-                                if(myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
+                                if (myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
                                 fetchTeamVacancies(parseInt(params.team_id ?? '')).then(setListVacancies)
-                            }}
+                            } }
                         />
                     </>
                 }

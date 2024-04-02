@@ -18,6 +18,7 @@ export type VacancyCardProps = {
 export const VacancyCard: FC<VacancyCardProps> = memo(props => {
     const [canSendResume, setCanSendResume] = useState<'canSend' | 'cantSend' | 'sended'>('cantSend')
     const { user } = useUser()
+    
     useEffect(() => {
         let state = 'cantSend' as 'canSend' | 'cantSend' | 'sended'
         props.vacancy_responses.forEach(response => {
@@ -31,6 +32,7 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
         }
         setCanSendResume(state)
     }, [user, props.vacancy_responses, props.myTeam])
+    
     return <div className={ styles.card } onClick={ props.onClick }>
         <Text fs='16px' fw={ 500 }>{ props.name }</Text>
         <Text fs='16px'>{ props.keywords.join(', ') }</Text>

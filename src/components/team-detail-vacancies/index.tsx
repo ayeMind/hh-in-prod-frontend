@@ -5,10 +5,11 @@ import { ITeam } from "@/models/ITeam";
 import { useNavigate, useParams } from "react-router-dom";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 
-export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam}: {
+export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam, currentTeam}: {
     vacancy_responses: IVacancyResponse[],
     listVacancies: ITeamVacancy[],
     myTeam: ITeam | null,
+    currentTeam: ITeam,
 }) => {
     const { hackathon_id, team_id } = useParams()
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam}: 
             { listVacancies?.map((vacancy: ITeamVacancy) => {
 
                 const onClick = () => {
-                    if (myTeam) {
+                    if (myTeam?.id == currentTeam.id) {
                         navigate(`/hackathon/${hackathon_id}/teams/${team_id}/vacancy/${vacancy.id}/candidates`)
                     }
                 }

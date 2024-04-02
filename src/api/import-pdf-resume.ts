@@ -11,7 +11,7 @@ export default async function importPDFResume(file: File): Promise<PdfResumeResp
     formData.append('pdf', file)
     
     const response = await apiClient.post(
-        '/resumes/suggest-resume-hh',
+        '/resumes/suggest-resume-pdf',
         formData,
     )
 
