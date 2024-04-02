@@ -25,10 +25,11 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                 <Text>{ props.email }</Text>
             </div>
         </div>
-        {user && props.creator && props.team_id && props.creator === user.id && (
+        {user && (props.email !== user.email) && props.creator && props.team_id && props.creator === user.id && (
             <ActionIcon onClick={() => {
-                deleteParticipant(props.team_id as number, props.email)
-                window.location.reload()    
+                deleteParticipant(props.team_id as number, props.email).then(()=>{
+                    window.location.reload()
+                })
             }} variant="transparent">
                 <IconTrash color="pink" />
             </ActionIcon>)}
