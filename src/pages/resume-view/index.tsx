@@ -1,4 +1,4 @@
-import { Container, Text, Badge } from "@mantine/core"
+import { Container, Text, Badge, Box } from "@mantine/core"
 import { Header } from "@/components/header";
 import { AuthGuard } from "@/components/auth-guard";
 import { useEffect, useState } from "react";
@@ -6,10 +6,7 @@ import { fetchResume } from "@/api/fetch-resume";
 import { IResume } from "@/models/IResume";
 import { useParams } from "react-router-dom";
 
-
-
 export const ResumeView = () => {
-
     const [resume, setResume] = useState<IResume | null>(null)
     const [contacts, setContacts] = useState<string[]>([])
 
@@ -45,31 +42,31 @@ export const ResumeView = () => {
        <Header variant="user" />
        <Container>
  
-        {resume?.bio && <Container mt="xl">
+        {resume?.bio && <Box mt="xl">
             <h3>Обо мне</h3>
             <Text>
                 {resume?.bio}
             </Text>
-        </Container>}
+        </Box>}
 
-        {contacts.length > 0 && <Container mt="xl">
+        {contacts.length > 0 && <Box mt="xl">
             <h3>Контакты</h3>
             <Text>{contactsItems}</Text>
-        </Container>}
+        </Box>}
 
-        {resume?.techStack && <Container mt="xl">
+        {resume?.techStack && <Box mt="xl">
             <h3>Tech Skills</h3>
             <Container mt="sm" pl={0}>
                 {techSkillsItems}
             </Container>
-        </Container>}
+        </Box>}
 
-        {resume?.softSkills && <Container mt="xl">
+        {resume?.softSkills && <Box mt="xl">
             <h3>Soft Skills</h3>
             <Container mt="sm" pl={0}>
                 {softSkillsItems}
             </Container>
-        </Container>}
+        </Box>}
 
         {!resume?.softSkills && !resume?.bio && contacts.length === 0 && !resume?.techStack && (
             <Text>У пользователя пустое резюме</Text>

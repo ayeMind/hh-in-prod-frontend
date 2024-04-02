@@ -2,11 +2,12 @@ import {VacancyReplyCard} from "@/components/vacancy-reply-card";
 import {SimpleGrid} from "@mantine/core";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 import {useNavigate} from "react-router-dom";
-import declineApplication from "@/api/decline_application";
+import declineApplication from "@/api/decline-application";
+import acceptApplication from "@/api/accept-application";
 
 export const TeamDetailVacanciesResponses = (
-    { vacancy_responses, hackathon_id, callbackOnDelete }:
-        { vacancy_responses: IVacancyResponse[], hackathon_id: number, callbackOnDelete: (res_id: number) => void }
+    { vacancy_responses, hackathon_id, callbackOnDelete, callbackOnAccept }:
+        { vacancy_responses: IVacancyResponse[], hackathon_id: number, callbackOnDelete: (res_id: number) => void, callbackOnAccept: (res_id: number) => void  }
 ) => {
     const navigate = useNavigate()
     return (
@@ -19,6 +20,10 @@ export const TeamDetailVacanciesResponses = (
                     onDecline={() => {
                         declineApplication(response.id)
                         callbackOnDelete(response.id)
+                    }}
+                    onAccept={() => {
+                        acceptApplication(response.id)
+                        callbackOnAccept(response.id)
                     }}
                 />
             }) }
