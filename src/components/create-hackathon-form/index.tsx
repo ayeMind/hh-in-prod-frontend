@@ -1,13 +1,26 @@
-import {Form, Formik} from "formik";
-import {Autocomplete, Button, Container, FileInput, Flex, Image} from "@mantine/core";
-import {FormInput} from "@/components/form-input/form-input";
-import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
-import {FormNumberInput} from "@/components/form-input/form-number-input";
-import {IconMinus, IconPlus} from "@tabler/icons-react";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
-import {createFormik} from "@/utils/create-formik";
-import createHackathon, {CreateHackathonPayload} from "@/api/create-hackathon";
+import { Form, Formik } from "formik";
+import {
+    Accordion, AccordionControl,
+    AccordionItem, AccordionPanel,
+    Button,
+    Container,
+    FileInput,
+    Flex,
+    Image,
+    Text,
+    TextInput
+} from "@mantine/core";
+import { FormInput } from "@/components/form-input/form-input";
+import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
+import { FormNumberInput } from "@/components/form-input/form-number-input";
+import { IconPlus, IconTrash } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { createFormik } from "@/utils/create-formik";
+import createHackathon, { CreateHackathonPayload } from "@/api/create-hackathon";
+import * as yup from 'yup'
+
+const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const CreateHackathonForm = () => {
     const navigate = useNavigate()
@@ -21,11 +34,19 @@ export const CreateHackathonForm = () => {
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
 
     const addParticipant = (email: string) => {
-        if(participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
-        else setParticipants([...participants, email])
+        if (!emailRegexp.test(email)) {
+            return setParticipantInputError("Некорректный email")
+        }
+
+        if (participants.includes(email)) setParticipantInputError("Пользователь уже добавлен")
+        else {
+            setParticipants([...participants, email])
+            setParticipantInputValue('')
+        }
     }
+
     const deleteParticipant = (email: string) => {
-        if(!participants.includes(email)) setParticipantInputError("В списке нет такого участника")
+        if (!participants.includes(email)) setParticipantInputError("В списке нет такого участника")
         else setParticipants(participants.filter((item) => item != email))
     }
 
@@ -36,23 +57,35 @@ export const CreateHackathonForm = () => {
             min_participants: 1,
             max_participants: 5,
         },
+        validationSchema: yup.object({
+            name: yup.string().required('Поле обязательно'),
+            description: yup.string().required('Описание обязательно'),
+            min_participants: yup.number()
+                .integer('Целое оно должно быть...')
+                .min(1, 'Не менее одного участника в одной команде')
+                .max(yup.ref('max_participants'), 'Больше максимального кол-во участников'),
+            max_participants: yup.number()
+                .integer('Целое оно должно быть...')
+                .min(yup.ref('max_participants'), 'Меньше минимального кол-во участников')
+                .max(7, 'Не более семи участника в одной команде'),
+        }),
         onSubmit: async (values, formikHelpers) => {
-            if(!previewLink || previewLink == '/img-placeholder.jpg' || !file) {
+            if (!previewLink || previewLink == '/img-placeholder.jpg' || !file) {
                 setPreviewError('Ошибка загрузки картинки')
                 return;
             }
-            if(file.size > 2 * 1024 * 1024) {
+            if (file.size > 2 * 1024 * 1024) {
                 setPreviewError('Картинка не может весить больше 2МБ')
             }
-            if(!(values.max_participants <= 10 && values.max_participants >= 1)) {
+            if (!(values.max_participants <= 10 && values.max_participants >= 1)) {
                 formikHelpers.setFieldError('max_participants', 'Введите кол-во участников от 1 до 10')
                 return
             }
-            if(values.min_participants < 1 || values.min_participants >= 10) {
+            if (values.min_participants < 1 || values.min_participants >= 10) {
                 formikHelpers.setFieldError('min_participants', 'Введите кол-во участников от 1 до 10')
                 return
             }
-            if(values.min_participants > values.max_participants) {
+            if (values.min_participants > values.max_participants) {
                 formikHelpers.setFieldError('min_participants', 'Минимальное количество участников не может превышать максимальное')
                 return
             }
@@ -62,7 +95,7 @@ export const CreateHackathonForm = () => {
             } as CreateHackathonPayload
 
             createHackathon(file, data).then(res => {
-                if(!res) setParticipantInputError("Непредвиденная ошибка")
+                if (!res) setParticipantInputError("Непредвиденная ошибка")
                 else navigate('/')
             })
         }
@@ -80,6 +113,7 @@ export const CreateHackathonForm = () => {
                     <FormTextareaInput
                         name="description"
                         label="Описание хакатона"
+                        autosize
                         placeholder="Введите описание хакатона"
                     />
                     <FormNumberInput
@@ -92,54 +126,76 @@ export const CreateHackathonForm = () => {
                         label="Макс количество участников в команде"
                         placeholder="Введите макс количество участников в команде"
                     />
-                    <Container p={"0"} w={"100%"}>
+                    <Container p={ "0" } w={ "100%" }>
                         <FileInput
-                            w={"100%"}
-                            value={file}
-                            onChange={(e) => {
-                                if(e) {
+                            w={ "100%" }
+                            value={ file }
+                            onChange={ (e) => {
+                                if (e) {
                                     setPreviewError('')
                                     setFile(e)
                                     setPreviewLink(URL.createObjectURL(e))
                                 } else {
                                     setPreviewError('Некорректное изображение')
                                 }
-                            }}
+                            } }
                             accept="image/png,image/jpeg"
                             label="Превью хакатона"
                             placeholder="Загрузите картинку"
-                            error={previewError}
+                            error={ previewError }
                         />
                         <Image
-                            mt={"xs"}
-                            src={previewLink}
-                            mah={350}
-                            w={"100%"}
+                            mt={ "xs" }
+                            src={ previewLink }
+                            mah={ 350 }
+                            w={ "100%" }
                             radius="sm"
                         />
                     </Container>
-                    <Flex justify={"space-between"} gap={"xs"} align={participantInputError ? "center" : "flex-end"}>
-                        <Autocomplete
-                            error={participantInputError}
-                            label={`Участники (Всего: ${participants.length})`}
-                            placeholder={"Введите email участника"}
-                            value={participantInputValue}
-                            onChange={(e) => {
-                                setParticipantInputValue(e)
+
+                    <Flex
+                        justify={ "space-between" }
+                        gap={ "xs" }
+                        align={ participantInputError ? "center" : "flex-end" }>
+
+                        <TextInput
+                            error={ participantInputError }
+                            label={ `Участники (Всего: ${ participants.length })` }
+                            placeholder={ "Введите email участника" }
+                            value={ participantInputValue }
+                            onChange={ (e) => {
+                                setParticipantInputValue(e.target.value)
                                 setParticipantInputError('')
-                            }}
-                            w={"100%"}
-                            data={participants}
-                            limit={5}
+                            } }
+                            w={ "100%" }
                         />
-                        <Button size={"sm"} onClick={() => deleteParticipant(participantInputValue)}>
-                            <IconMinus stroke={2} size={20} />
-                        </Button>
-                        <Button size={"sm"} onClick={() => addParticipant(participantInputValue)}>
-                            <IconPlus stroke={2} size={20} />
+                        <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
+                            <IconPlus stroke={ 2 } size={ 20 }/>
                         </Button>
                     </Flex>
-                    <Button w={"fit-content"} type={"submit"}>Создать</Button>
+
+                    <Accordion defaultValue='email'>
+                        <AccordionItem value='email' style={ {borderBottom: 'none'} }>
+                            <AccordionControl p={ 0 }>Список участников хакатона</AccordionControl>
+                            {
+                                participants.map(email => {
+                                    return <AccordionPanel key={ email } p={ 0 }>
+                                        <Flex
+                                            justify='space-between' p={ 12 }
+                                            style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }>
+                                            <Text fw={ 500 }>{ email }</Text>
+                                            <IconTrash
+                                                color='pink'
+                                                style={ {cursor: 'pointer'} }
+                                                onClick={ () => deleteParticipant(email) }/>
+                                        </Flex>
+                                    </AccordionPanel>
+                                })
+                            }
+                        </AccordionItem>
+                    </Accordion>
+
+                    <Button w={ "fit-content" } type={ "submit" }>Создать</Button>
                 </Flex>
             </Form>
         </Formik>
