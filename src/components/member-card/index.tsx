@@ -17,8 +17,8 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
 
     const {user} = useUser()
 
-    return <div className={ classes["border-container"] }>
-        <div className={ classes["member-container"] } onClick={ props.onClick }>
+    return <div className={ classes["border-container"] } onClick={ props.onClick }>
+        <div className={ classes["member-container"] }>
             <Avatar/>
             <div className={ classes["member-info"] }>
                 <Text>{ props.name }</Text>
