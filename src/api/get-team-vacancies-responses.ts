@@ -11,7 +11,7 @@ export default async function getTeamVacanciesResponses(teamId: number): Promise
         console.log('biba', response.data)
         return (response.data as any[]).map(json => {
             return {
-                id: json.id,
+                id: json.app_id,
                 team: json.team,
                 vacancy_id: json.vac,
                 candidate_id: json.who_responsed

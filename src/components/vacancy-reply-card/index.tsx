@@ -1,6 +1,6 @@
 import {FC, memo, useEffect, useState} from "react";
 import styles from './vacancy-reply-card.module.css';
-import { Avatar, Flex, Text } from "@mantine/core";
+import {Avatar, Flex, Text, UnstyledButton} from "@mantine/core";
 import {IUser} from "@/models/IUser";
 import fetchProfileById from "@/api/fetch-profile-by-id";
 
@@ -17,8 +17,8 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
         fetchProfileById(props.candidate_id).then(setCandidate)
         console.log("ABOBA", props.candidate_id)
     }, [])
-    return <div className={ styles.card } onClick={ props.onResumeClick }>
-        <div className={ styles["member-container"] }>
+    return <div className={ styles.card }>
+        <div className={ styles["member-container"] } onClick={ props.onResumeClick }>
             <Avatar/>
             <div className={ styles["member-info"] }>
                 <Text>{ candidate ? candidate.name : "Загрузка" }</Text>
@@ -27,8 +27,8 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
         </div>
 
         <Flex gap={ 24 } style={{ cursor: 'pointer' }}>
-            <Text c='green' onClick={ props.onAccept }>Принять</Text>
-            <Text c='red' onClick={ props.onAccept }>Отклонить</Text>
+            <UnstyledButton c='green' onClick={ props.onAccept }>Принять</UnstyledButton>
+            <UnstyledButton c='red' onClick={ props.onDecline }>Отклонить</UnstyledButton>
         </Flex>
     </div>
 })

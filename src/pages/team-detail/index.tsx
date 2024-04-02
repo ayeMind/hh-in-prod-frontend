@@ -83,7 +83,11 @@ export const TeamDetailPage = memo(() => {
 
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses vacancy_responses={ vacancyResponses } hackathon_id={ hackathonId }/>
+                <TeamDetailVacanciesResponses
+                    vacancy_responses={ vacancyResponses }
+                    hackathon_id={ hackathonId }
+                    callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
+                />
 
             </Container>
         </>
