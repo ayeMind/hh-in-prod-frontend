@@ -84,6 +84,7 @@ export const TeamDetailPage = memo(() => {
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
                 <TeamDetailVacanciesResponses
+                    variant={myTeam?.creator && user?.id && myTeam.creator == user.id ? "teamlead" : "user"}
                     vacancy_responses={ vacancyResponses }
                     hackathon_id={ hackathonId }
                     callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
