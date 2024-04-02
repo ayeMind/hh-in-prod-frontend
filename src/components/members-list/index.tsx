@@ -8,7 +8,7 @@ interface Props {
   members: IUser[];
 }
 
-export const MembersList = ({hackathon_id, members}: Props) => {
+export const MembersList = ({ hackathon_id, members}: Props) => {
 
     const navigate = useNavigate()
 
