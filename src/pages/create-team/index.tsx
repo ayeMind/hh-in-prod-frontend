@@ -5,7 +5,6 @@ import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTeam } from "@/api/create-team";
 import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
-import joinTeamById from "@/api/join-team-by-id.ts";
 
 export const CreateTeam = () => {
     const {hackathon_id} = useParams()
@@ -71,7 +70,7 @@ const Content: FC<ContentProps> = (props) => {
         if (loading) return
         setLoading(true)
 
-        const teamId = await createTeam(
+        const id = await createTeam(
             props.hackathonId,
             {
                 name: title,
@@ -83,12 +82,9 @@ const Content: FC<ContentProps> = (props) => {
             }
         )
 
-        if (teamId) {
-            const successJoin = await joinTeamById(teamId)
-            if (successJoin) {
-                navigate(`/hackathon/${ hackathon_id }/teams`)
-            }
-        }
+        if (id) {
+            navigate(`/hackathon/${ hackathon_id }/teams/${id}`)
+        } 
         setLoading(false)
     }
 
@@ -122,8 +118,8 @@ const Content: FC<ContentProps> = (props) => {
                     Создать вакансию
                 </Text>
             </UnstyledButton>
-            <Button 
-                w={ "fit-content" } 
+            <Button
+                w={ "fit-content" }
                 onClick={ onSubmit }>
                 Сохранить
             </Button>
