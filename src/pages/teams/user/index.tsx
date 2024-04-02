@@ -27,8 +27,8 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     const {hackathon_id} = useParams()
     const [suggestions, setSuggestions] = useState<IVacancySuggestion[]>([])
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
-    const [myTeam, setMyTeam] = useState<ITeam | null>(null)
-
+    const [myTeam, setMyTeam] = useState<ITeam | null | undefined>(undefined)
+    
     useEffect(() => {
         fetchResume(
             parseInt(localStorage.getItem('user_id') ?? ''),
@@ -47,7 +47,6 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
         fetchHackathon(parseInt(hackathon_id as string)).then(data => {
             if (!data) return null;
             setHackathon(data);
-            console.log(data);
         })
 
         fetchMyTeam(parseInt(hackathon_id as string)).then(data => {
@@ -62,12 +61,14 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             {/*  Head */ }
             <Flex justify="space-between" mb='md' align='center'>
                 <h1>Команды</h1>
-                <Button
-                    onClick={ () => navigate(`/hackathon/${ hackathon_id }/teams/create`) }
-                    variant="outline"
-                    rightSection={ <IconPlus size={ 14 }/> }>
-                    Создать команду
-                </Button>
+                {
+                    !myTeam && <Button
+                        onClick={ () => navigate(`/hackathon/${ hackathon_id }/teams/create`) }
+                        variant="outline"
+                        rightSection={ <IconPlus size={ 14 }/> }>
+                        Создать команду
+                    </Button>
+                }
             </Flex>
 
             {/*  Current team */ }
