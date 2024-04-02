@@ -7,7 +7,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { IconPlus } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { IMemberSuggestion } from "@/models/IMemberSuggestion.ts";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import getSuitableCandidates from "@/api/get-suitable-candidates.ts";
 import sendTeamInviteEmail from "@/api/send-team-invite-email.ts";
 
