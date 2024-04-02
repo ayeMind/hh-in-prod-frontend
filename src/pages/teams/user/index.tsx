@@ -62,8 +62,8 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             </Flex>
 
             {/*  Current team */ }
-            {myTeam && <CurrentTeamCard
-                hackathonId={ hackathon!.id }
+            {myTeam && hackathon && <CurrentTeamCard
+                hackathonId={ hackathon.id }
                 id={ myTeam.id }
                 name={ myTeam.name }
                 members={ myTeam.members.length }

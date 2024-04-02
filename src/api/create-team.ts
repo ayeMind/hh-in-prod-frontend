@@ -9,12 +9,12 @@ type CreateTeamPayload = {
     }[]
 }
 
-export async function createTeam(id: number, payload: CreateTeamPayload): Promise<number> {
+export async function createTeam(id: number, payload: CreateTeamPayload): Promise<number | null> {
     const response = await apiClient({
         method: 'post',
         url: `/teams/create?hackathon_id=${id}`,
         data: payload,
     })
     
-    return response.data;
+    return response.data?.id;
 }

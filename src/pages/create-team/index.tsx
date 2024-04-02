@@ -5,16 +5,16 @@ import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTeam } from "@/api/create-team";
 import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
-// import joinTeamById from "@/api/join-team-by-id.ts";
+import joinTeamById from "@/api/join-team-by-id.ts";
 
 export const CreateTeam = () => {
-    const { hackathon_id } = useParams() 
-    
+    const {hackathon_id} = useParams()
+
     return (
         <>
             <Header variant={ "user" }/>
             <Container size={ "md" } pb={ "100px" }>
-                <Content hackathonId={parseInt(hackathon_id ?? '')} />
+                <Content hackathonId={ parseInt(hackathon_id ?? '') }/>
             </Container>
         </>
     )
@@ -71,7 +71,7 @@ const Content: FC<ContentProps> = (props) => {
         if (loading) return
         setLoading(true)
 
-        const success = await createTeam(
+        const teamId = await createTeam(
             props.hackathonId,
             {
                 name: title,
@@ -83,21 +83,21 @@ const Content: FC<ContentProps> = (props) => {
             }
         )
 
-        if (success) {
-            // TODO: join team 
-            // const successJoin = await joinTeamById(props)
-            
-            navigate(`/hackathon/${ hackathon_id }/teams`)
+        if (teamId) {
+            const successJoin = await joinTeamById(teamId)
+            if (successJoin) {
+                navigate(`/hackathon/${ hackathon_id }/teams`)
+            }
         }
         setLoading(false)
     }
 
     return <>
-        <h1>Изменение команды</h1>
+        <h1>Создание команды</h1>
         <Flex direction={ "column" } gap={ "xl" } mt='md'>
             <TextInput
                 label="Название команды"
-                placeholder="Навзание команды"
+                placeholder="Название команды"
                 value={ title }
                 onChange={ e => setTitle(e.target.value) }
             />
@@ -122,7 +122,11 @@ const Content: FC<ContentProps> = (props) => {
                     Создать вакансию
                 </Text>
             </UnstyledButton>
-            <Button w={ "fit-content" } onClick={ onSubmit }>Сохранить</Button>
+            <Button 
+                w={ "fit-content" } 
+                onClick={ onSubmit }>
+                Сохранить
+            </Button>
         </Flex>
     </>
 }
