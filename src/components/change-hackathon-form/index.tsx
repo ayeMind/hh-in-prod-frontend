@@ -162,8 +162,11 @@ export const ChangeHackathonForm = (
                     {
                         successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
                     }
-
-                    <Text size="sm" mt={ 10 }>Уже { percentWithTeam }% участиков находится в команде</Text>
+                    {
+                        participants.length !== 0 && <Text size="sm" mt={ 10 }>
+                            Уже <strong>{ percentWithTeam }%</strong> участиков находится в команде
+                        </Text>
+                    }
                     <Button w={ "fit-content" } type={ "submit" }>Сохранить</Button>
                     <Link
                         to={ `/hackathon/${ hackathon.id }/org/teams` }
