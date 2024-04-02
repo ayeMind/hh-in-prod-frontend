@@ -32,10 +32,10 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
 
         <Text fw={ 500 } mt={ 16 } size="md">{ props.suggestion.team.name }</Text>
 
-        <Flex gap={ 6 } mt={ 4 } direction='row'>
+        <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' flex='wrap' >
             {
                 props.suggestion.keywords.map(skill => {
-                    return <Badge>{ skill }</Badge>
+                    return <Badge w='fit-content' miw={50}>{ skill }</Badge>
                 })
             }
         </Flex>
