@@ -24,8 +24,9 @@ export const TeamDetailVacanciesResponses = (
                         callbackOnDelete(response.id)
                     }}
                     onAccept={() => {
-                        acceptApplication(response.id)
-                        callbackOnAccept(response.id)
+                        acceptApplication(response.id).then(() => {
+                            callbackOnAccept(response.id)
+                        })
                     }}
                 />
             }) }

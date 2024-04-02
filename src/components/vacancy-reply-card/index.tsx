@@ -30,7 +30,7 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
         </div>
 
         { props.variant == "teamlead" &&
-        <Flex gap={ 24 } style={{ cursor: 'pointer' }}>
+        <Flex gap={ 24 } style={{ cursor: 'pointer' }} mt={16}>
             <UnstyledButton c='green' onClick={ props.onAccept }>Принять</UnstyledButton>
             <UnstyledButton c='red' onClick={ props.onDecline }>Отклонить</UnstyledButton>
         </Flex> }

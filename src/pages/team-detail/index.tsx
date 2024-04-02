@@ -85,19 +85,22 @@ export const TeamDetailPage = memo(() => {
                 <TeamDetailVacancies vacancy_responses={ vacancyResponses } listVacancies={ listVacancies } myTeam={ myTeam }/>
 
                 {/* Отклики */ }
-                <h3>Отклики на вакансии </h3>
-                <TeamDetailVacanciesResponses
-                    variant={teamVacanciesResponsesVariant}
-                    vacancy_responses={ vacancyResponses }
-                    hackathon_id={ hackathonId }
-                    callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
-                    callbackOnAccept={(res_id: number) => {
-                        setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
-                        if(myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
-                        window.location.reload()
-                    }}
-                />
-
+                {
+                    myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
+                        <h3>Отклики на вакансии </h3>
+                        <TeamDetailVacanciesResponses
+                            variant={teamVacanciesResponsesVariant}
+                            vacancy_responses={ vacancyResponses }
+                            hackathon_id={ hackathonId }
+                            callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
+                            callbackOnAccept={(res_id: number) => {
+                                setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
+                                if(myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
+                                fetchTeamVacancies(parseInt(params.team_id ?? '')).then(setListVacancies)
+                            }}
+                        />
+                    </>
+                }
             </Container>
         </>
     </AuthGuard>
