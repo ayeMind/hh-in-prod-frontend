@@ -24,6 +24,7 @@ export const TeamDetailPage = memo(() => {
     const [myTeam, setMyTeam] = useState<ITeam | null>(null)
     const [vacancyResponses, setVacanciesResponses] = useState<IVacancyResponse[]>([])
     const navigate = useNavigate()
+    const [teamVacanciesResponsesVariant, setTeamVacanciesResponsesVariant] = useState<'teamlead' | 'user'>('user')
 
     useEffect(() => {
         const team_id = parseInt(params.team_id ?? '')
@@ -32,17 +33,19 @@ export const TeamDetailPage = memo(() => {
         fetchMyTeam(hackathon_id).then(setMyTeam)
         if (team_id && hackathon_id) {
             setHackathonId(hackathon_id)
-            getTeam(team_id).then(setTeamDetail)
+            getTeam(team_id).then((res) => {
+                setTeamDetail(res)
+                setTeamVacanciesResponsesVariant(res?.creator && user?.id && res.creator == user.id ? "teamlead" : "user")
+            })
             getTeamVacanciesResponses(team_id).then(res => {
                 setVacanciesResponses(res)
-                console.log(res)
             })
         } else {
             navigate('/404')
         }
-    }, [])
+    }, [user])
 
-    if (!teamDetail) {
+    if (!teamDetail || !user || !user.id) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
         </Center>
@@ -84,7 +87,7 @@ export const TeamDetailPage = memo(() => {
                 {/* Отклики */ }
                 <h3>Отклики на вакансии </h3>
                 <TeamDetailVacanciesResponses
-                    variant={myTeam?.creator && user?.id && myTeam.creator == user.id ? "teamlead" : "user"}
+                    variant={teamVacanciesResponsesVariant}
                     vacancy_responses={ vacancyResponses }
                     hackathon_id={ hackathonId }
                     callbackOnDelete={(res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))}
