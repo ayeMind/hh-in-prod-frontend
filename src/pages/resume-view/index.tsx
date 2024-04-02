@@ -49,7 +49,10 @@ export const ResumeView = () => {
        <Container>
        <Flex align="center" gap="md">
             <Avatar w={100} h={100} />
-            <h2>{profile?.name}</h2>
+            <Box>
+                <h2>{profile?.name}</h2>
+                <Text>{profile?.email}</Text>
+            </Box>
         </Flex>
  
         {resume?.bio && <Box mt="xl">
